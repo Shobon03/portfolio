@@ -12,6 +12,16 @@ export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'three',
+        '@react-three/fiber',
+        '@react-three/drei',
+        '@lucide/astro',
+      ],
+    },
   },
   integrations: [react(), mdx(), sitemap()],
 });

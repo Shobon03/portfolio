@@ -66,11 +66,29 @@ const finalJsonLd = jsonLd || defaultJsonLd;
         <ClientRouter />
 
         <script is:inline>
-            const theme = localStorage.getItem('theme');
-            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && systemDark)) {
-                document.documentElement.classList.add('dark');
-            }
+            // Função para aplicar o tema imediatamente (antes do render)
+            const applyThemeImmediate = () => {
+                const savedTheme = localStorage.getItem('theme');
+                // Dark mode como padrão se não houver nada salvo
+                const theme = savedTheme || 'dark';
+
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+
+                // Salva o tema padrão se não existir
+                if (!savedTheme) {
+                    localStorage.setItem('theme', 'dark');
+                }
+            };
+
+            // Aplica tema imediatamente (primeira carga)
+            applyThemeImmediate();
+
+            // Mantém o tema persistente durante transições de página
+            document.addEventListener('astro:after-swap', applyThemeImmediate);
         </script>
 
         {/* <!-- JSON-LD for SEO --> */}

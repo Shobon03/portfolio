@@ -39,7 +39,7 @@ const jsonLd = {
     <div class="space-y-4">
       {posts.map((post) => (
         <a href={`${base}blog/${post.slug}`} class="block group">
-          <article class="border-3 border-brutal-black p-6 bg-brutal-bg hover:bg-brutal-yellow hover:shadow-hard transition-all flex flex-col md:flex-row justify-between gap-4 items-start md:items-center group-hover:text-black">
+          <article class="border-3 border-brutal-black p-6 bg-brutal-bg hover:bg-brutal-yellow hover:shadow-hard active:shadow-none active:translate-y-1 transition-all flex flex-col md:flex-row justify-between gap-4 items-start md:items-center group-hover:text-black">
 
             <div class="space-y-2">
               <div class="flex gap-2 flex-wrap">
@@ -51,7 +51,7 @@ const jsonLd = {
                 ))}
               </div>
 
-              <h2 class="font-display text-3xl font-bold group-hover:underline decoration-4 underline-offset-4 decoration-black">
+              <h2 class="font-display text-3xl font-bold group-hover:underline decoration-4 underline-offset-4 decoration-black" transition:name={"post-title-" + post.slug}>
                 {post.data.title}
               </h2>
 

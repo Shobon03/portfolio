@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { ArrowLeft } from '@lucide/astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { link } from '../../utils/url-helper';
 
 // Essa função gera as rotas estáticas para cada post no build time
 export async function getStaticPaths() {
@@ -46,17 +48,24 @@ const jsonLd = {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} jsonLd={jsonLd}>
-  <article class="max-w-3xl mx-auto py-12">
+  <article class="max-w-3xl mx-auto py-12 px-4">
+    <a
+      href={link('blog')}
+      class="inline-flex items-center gap-2 font-bold text-brutal-black hover:text-brutal-purple transition-colors mb-8 group"
+    >
+      <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+      Voltar para o Blog
+    </a>
 
-    <header class="mb-12 border-b-3 border-[#050505] dark:border-white pb-8">
-      <div class="flex gap-2 mb-4">
+    <header class="mb-12 border-b-3 border-brutal-black pb-8">
+      <div class="flex flex-wrap gap-2 mb-4">
         {post.data.tags.map((tag) => (
-           <span class="bg-brutal-purple text-white font-bold px-2 py-1 text-sm uppercase shadow-hard-sm border-2 border-[#050505] dark:border-white">
-             {tag}
-           </span>
+          <span class="bg-brutal-purple text-white font-bold px-2 py-1 text-sm uppercase shadow-hard-sm border-2 border-brutal-black">
+            {tag}
+          </span>
         ))}
       </div>
-      <h1 class="font-display text-5xl md:text-6xl font-black leading-tight mb-4 dark:text-white" style="color: #050505;">
+      <h1 class="font-display text-5xl md:text-6xl font-black leading-tight mb-4 text-brutal-black" transition:name={"post-title-" + post.slug}>
         {post.data.title}
       </h1>
       <div class="font-mono font-bold text-gray-600 dark:text-gray-400">
@@ -64,20 +73,11 @@ const jsonLd = {
       </div>
     </header>
 
-    <div class="prose prose-xl dark:prose-invert max-w-none font-sans
-      prose-headings:font-display prose-headings:font-black prose-headings:text-black dark:prose-headings:text-white
-      prose-p:text-gray-900 dark:prose-p:text-gray-200
-      prose-li:text-gray-900 dark:prose-li:text-gray-200
-      prose-strong:text-black dark:prose-strong:text-white
-      prose-code:text-brutal-purple prose-code:bg-gray-100 dark:prose-code:bg-gray-800 dark:prose-code:text-brutal-yellow
+    <div class="prose prose-xl dark:prose-invert max-w-none
+      prose-headings:font-display prose-headings:font-black
       prose-a:text-brutal-blue prose-a:no-underline prose-a:font-bold hover:prose-a:bg-brutal-yellow hover:prose-a:text-black
-      prose-blockquote:border-l-brutal-purple prose-blockquote:text-gray-800 dark:prose-blockquote:text-gray-300
-      prose-img:border-3 prose-img:border-brutal-black dark:prose-img:border-white prose-img:shadow-hard
-      [&_h2]:text-black dark:[&_h2]:text-white
-      [&_h3]:text-black dark:[&_h3]:text-white
-      [&_p]:text-gray-900 dark:[&_p]:text-gray-200
-      [&_ul]:text-gray-900 dark:[&_ul]:text-gray-200
-      [&_ol]:text-gray-900 dark:[&_ol]:text-gray-200">
+      prose-blockquote:border-l-brutal-purple
+      prose-img:border-3 prose-img:border-brutal-black prose-img:shadow-hard">
       <Content />
     </div>
   </article>

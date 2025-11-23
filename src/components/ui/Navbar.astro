@@ -9,7 +9,7 @@ const navItems = [
 ---
 
 <header class="sticky top-0 z-50">
-  <nav class="relative w-full bg-brutal-bg border-b-3 border-brutal-black py-4 px-4 transition-colors duration-300">
+  <nav class="relative w-full bg-brutal-bg border-b-3 border-brutal-black py-4 px-4 transition-colors duration-300" transition:persist>
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <a href={joinPath("/")} class="font-display font-black text-2xl uppercase tracking-tighter hover:text-brutal-purple transition-colors z-50">
         Matheus<span class="text-brutal-blue">.Dev</span>
@@ -92,13 +92,10 @@ const navItems = [
 
   const setupTheme = () => {
     const savedTheme = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Dark mode como padrão se não houver nada salvo
+    const theme = savedTheme || 'dark';
 
-    if (savedTheme) {
-      applyTheme(savedTheme);
-    } else {
-      applyTheme(systemDark ? 'dark' : 'light');
-    }
+    applyTheme(theme);
 
     const btn = document.getElementById('theme-toggle');
     if (btn) {
@@ -137,12 +134,15 @@ const navItems = [
     });
   };
 
-  // --- Initialization ---
+  // --- Initialization & Transition Handling ---
   const initializeNav = () => {
     setupTheme();
     setupSidebar();
   };
 
+  // Initialize scripts on first page load
   initializeNav();
-  document.addEventListener('astro:after-swap', initializeNav);
+
+  // Re-initialize scripts after page transition
+  document.addEventListener('astro:after-swap', () => setTimeout(initializeNav, 0));
 </script>
