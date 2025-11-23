@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* Referenciando direto da pasta public (a barra inicial '/' é importante) */
+@font-face {
+    font-family: "Cabinet Grotesk Variable";
+    src: url("/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Satoshi Variable";
+    src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+    font-weight: 300 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Satoshi Variable";
+    src: url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
+    font-weight: 300 900;
+    font-display: swap;
+    font-style: italic;
+}
+
+@theme {
+    /* Mapeamento */
+    --font-display: "Cabinet Grotesk Variable", sans-serif;
+    --font-sans: "Satoshi Variable", "Inter", sans-serif;
+
+    /* Cores Brutalistas */
+    --color-brutal-bg: #ffffff;
+    --color-brutal-black: #050505;
+    --color-brutal-purple: #a855f7;
+    --color-brutal-yellow: #ffd600;
+    --color-brutal-blue: #3b82f6;
+    --color-brutal-orange: #f97316;
+    --color-brutal-gray: #e5e5e5;
+
+    /* Sombras */
+    --shadow-hard: 4px 4px 0px 0px #050505;
+    --shadow-hard-sm: 2px 2px 0px 0px #050505;
+
+    /* Bordas */
+    --border-width-3: 3px;
+}
+
+/* ... mantenha os @layer base e utilities como estavam ... */
+@layer base {
+    body {
+        @apply bg-brutal-bg text-brutal-black font-sans antialiased;
+        background-image:
+            linear-gradient(to right, #80808012 1px, transparent 1px),
+            linear-gradient(to bottom, #80808012 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+}

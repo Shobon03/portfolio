@@ -1,0 +1,19 @@
+---
+title: "Hello World em SNES Assembly"
+description: "Entendendo como o Super Nintendo processa instruções básicas."
+pubDate: "2025-11-23"
+tags: ["Assembly", "SNES", "Retro Dev"]
+draft: false
+---
+
+## O Início de Tudo
+
+Programar para **SNES** não é como programar em JavaScript. Não existe `console.log`.
+
+Para pintar um pixel na tela, você precisa falar diretamente com a PPU (Picture Processing Unit).
+
+```assembly
+; Exemplo simples de código 65816
+LDA #$80    ; Carrega o valor hex 80 no acumulador
+STA $2100   ; Armazena no registrador de brilho da tela (INIDISP)
+```

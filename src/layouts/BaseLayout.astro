@@ -1,0 +1,26 @@
+---
+import "../assets/styles/global.css"; // <--- O IMPORT IMPORTANTE AQUI
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = "Portfolio & Blog" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-br" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <main class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <slot />
+        </main>
+    </body>
+</html>
