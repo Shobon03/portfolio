@@ -1,34 +1,191 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import HeroScene from "../components/3d/HeroScene"; // Importe o componente
+import { getCollection } from 'astro:content';
+import { ArrowRight } from '@lucide/astro';
+import HeroScene from '../components/3d/HeroScene';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// 1. Buscar posts recentes do Blog
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2); // Pega apenas os 2 últimos
+
+// 2. Dados dos Projetos (Hardcoded por enquanto)
+const projects = [
+  {
+    title: 'Secrets Vault',
+    description: 'Gerenciador de senhas Local-First com criptografia robusta.',
+    tags: ['Rust', 'Tauri v2', 'SQLite', 'React'],
+    color: 'bg-brutal-purple', // Cor do hover
+    link: '#',
+  },
+  {
+    title: 'BIM Automation Plugins',
+    description:
+      'Plugins de alta performance para Revit e ArchiCAD focados em interoperabilidade IFC.',
+    tags: ['C#', 'C++', '.NET', 'Revit API'],
+    color: 'bg-brutal-blue',
+    link: '#',
+  },
+];
+
+// 3. Sua Stack (do README)
+const stack = [
+  'TypeScript',
+  'Rust',
+  'Go',
+  'Elixir',
+  'React',
+  'Next.js',
+  'Astro',
+  'DevOps',
+  'Tauri',
+  'Bun',
+  'Docker',
+  'Linux',
+  'Postgres',
+  'Nginx',
+  'AWS',
+];
+const marqueeContent = [...stack, ...stack, ...stack, ...stack];
 ---
 
-<BaseLayout title="Matheus | Full-Stack">
-    <section
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 border-b-3 border-brutal-black"
-    >
-        <div class="p-8 flex flex-col justify-center space-y-6">
-            <h1
-                class="font-display text-6xl lg:text-8xl font-black leading-none uppercase"
-            >
-                Code is <br />
-                <span class="text-brutal-purple">Poetry</span>
-            </h1>
-            <p class="text-xl font-medium max-w-md">
-                Full-Stack Developer, Linux Enthusiast & Retro Gamer.
-            </p>
-        </div>
+<BaseLayout title="Matheus | Full-Stack Developer">
 
-        <div
-            class="border-l-0 lg:border-l-3 border-brutal-black h-[500px] bg-gray-50 relative"
-        >
-            <HeroScene client:load />
+  <div class="fixed inset-0 z-[-1] bg-brutal-bg animate-grid-cyber pointer-events-none"></div>
 
-            <div
-                class="absolute bottom-4 right-4 bg-white border-2 border-brutal-black px-2 py-1 text-xs font-bold shadow-hard-sm"
-            >
-                DRAG ME
-            </div>
+  <section class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] border-b-3 border-brutal-black relative">
+    <div class="p-8 flex flex-col justify-center space-y-6 relative overflow-hidden group">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-brutal-yellow rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity"></div>
+
+      <h1 class="font-display text-6xl lg:text-8xl font-black leading-[0.85] uppercase z-10">
+        Código é <br/>
+        <span class="text-gradient-stroke" data-text="Poesia">
+          Poesia
+        </span>
+      </h1>
+      <p class="text-xl font-medium max-w-md z-10 text-gray-600 dark:text-gray-400">
+        Desenvolvedor Full-Stack, Entusiasta Linux & Retro Gamer.
+      </p>
+
+      <div class="flex gap-4 pt-4 z-10">
+         <a href="#contact" class="bg-brutal-black text-brutal-bg px-6 py-3 font-bold border-2 border-brutal-black shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+          Entre em Contato
+        </a>
+      </div>
+    </div>
+
+    <div class="border-l-0 lg:border-l-3 border-brutal-black h-[500px] bg-brutal-bg relative overflow-hidden">
+       <HeroScene client:load />
+       <div class="absolute bottom-4 right-4 bg-brutal-bg border-2 border-brutal-black px-2 py-1 text-xs font-bold shadow-hard-sm">
+          ARRASTE
+       </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 border-b-3 border-brutal-black bg-brutal-bg">
+    <div class="max-w-screen-xl mx-auto">
+      <h2 class="font-display text-5xl font-black uppercase mb-12 flex items-center gap-4">
+        <span class="w-8 h-8 bg-brutal-orange border-2 border-brutal-black shadow-hard-sm"></span>
+        Projetos
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {projects.map((project) => (
+          <a href={project.link} class="group block">
+            <article class="h-full border-3 border-brutal-black bg-brutal-bg p-8 relative transition-all hover:-translate-y-1 hover:shadow-hard">
+              <div class={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity ${project.color}`}></div>
+
+              <div class="relative z-10">
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map(tag => (
+                    <span class="text-xs font-bold border-2 border-brutal-black px-2 py-1 bg-white text-black shadow-hard-sm">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 class="font-display text-3xl font-bold mb-2">{project.title}</h3>
+                <p class="text-gray-600 dark:text-gray-400 font-medium mb-6">{project.description}</p>
+
+                <div class="inline-flex items-center font-bold underline decoration-2 underline-offset-4 group-hover:decoration-brutal-black">
+                  Ver Projeto
+                </div>
+              </div>
+            </article>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8 border-b-3 border-brutal-black bg-brutal-yellow overflow-hidden">
+    <div class="relative w-full max-w-full overflow-hidden">
+    <div class="animate-marquee flex items-center gap-8 pl-8">
+        {marqueeContent.map((tech) => (
+        <div class="flex items-center gap-8 shrink-0">
+            <span class="text-4xl lg:text-5xl font-display font-black text-black uppercase">
+                {tech}
+            </span>
+
+            <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent"></span>
         </div>
-    </section>
+        ))}
+    </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-brutal-bg">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="flex justify-between items-end mb-12">
+        <h2 class="font-display text-5xl font-black uppercase flex items-center gap-4">
+          <span class="w-8 h-8 bg-brutal-purple border-2 border-brutal-black shadow-hard-sm"></span>
+          Posts recentes
+        </h2>
+        <a href="/blog" class="hidden md:block font-bold hover:underline decoration-4 underline-offset-4 decoration-brutal-purple">
+          Ver todos os posts
+        </a>
+      </div>
+
+      <div class="grid gap-6">
+        {recentPosts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="group">
+            <article class="border-3 border-brutal-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 hover:bg-brutal-black hover:text-brutal-bg transition-colors duration-300">
+              <div>
+                <h3 class="font-display text-2xl font-bold mb-2 group-hover:text-brutal-yellow transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="font-mono text-sm opacity-70">
+                  {post.data.pubDate.toLocaleDateString('pt-BR')} — {post.data.tags.join(', ')}
+                </p>
+              </div>
+              <div class="w-10 h-10 border-2 border-current flex items-center justify-center rounded-full group-hover:rotate-45 transition-transform">
+                  <ArrowRight color="currentColor" size="1.5rem" />
+              </div>
+            </article>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-8 md:hidden">
+         <a href="/blog" class="block text-center font-bold border-2 border-brutal-black p-3 shadow-hard-sm">
+          Ver todos os posts
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="bg-brutal-black text-brutal-bg py-12 border-t-3 border-brutal-black text-center">
+    <h2 class="font-display text-4xl md:text-6xl font-black uppercase mb-6">
+      Vamos Criar Algo <br/> <span class="text-brutal-purple">Brutal.</span>
+    </h2>
+    <div class="flex justify-center gap-6 font-bold">
+      <a href="https://github.com/Shobon03" class="hover:text-brutal-yellow transition-colors">GitHub</a>
+      <a href="https://linkedin.com" class="hover:text-brutal-blue transition-colors">LinkedIn</a>
+      <a href="mailto:seuemail@exemplo.com" class="hover:text-brutal-orange transition-colors">Email</a>
+    </div>
+    <p class="mt-8 font-mono text-xs opacity-50">
+      © {new Date().getFullYear()} Matheus.Dev. Desenvolvido com 💜 usando Astro & Bun.
+    </p>
+  </footer>
+
 </BaseLayout>

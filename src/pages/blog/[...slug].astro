@@ -4,39 +4,51 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Essa função gera as rotas estáticas para cada post no build time
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
 
 const post = Astro.props;
-const { Content } = await post.render(); // Renderiza o MDX para HTML
+const { Content } = await post.render();
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
   <article class="max-w-3xl mx-auto py-12">
 
-    <header class="mb-12 border-b-3 border-brutal-black pb-8">
+    <header class="mb-12 border-b-3 border-[#050505] dark:border-white pb-8">
       <div class="flex gap-2 mb-4">
         {post.data.tags.map((tag) => (
-           <span class="bg-brutal-purple text-white font-bold px-2 py-1 text-sm uppercase shadow-hard-sm border-2 border-brutal-black">
+           <span class="bg-brutal-purple text-white font-bold px-2 py-1 text-sm uppercase shadow-hard-sm border-2 border-[#050505] dark:border-white">
              {tag}
            </span>
         ))}
       </div>
-      <h1 class="font-display text-5xl md:text-6xl font-black leading-tight mb-4">
+      <h1 class="font-display text-5xl md:text-6xl font-black leading-tight mb-4 dark:text-white" style="color: #050505;">
         {post.data.title}
       </h1>
-      <div class="font-mono font-bold text-gray-500">
+      <div class="font-mono font-bold text-gray-600 dark:text-gray-400">
         Publicado em {post.data.pubDate.toLocaleDateString('pt-BR', { dateStyle: 'long' })}
       </div>
     </header>
 
-    <div class="prose prose-xl prose-neutral prose-headings:font-display prose-headings:font-black prose-a:text-brutal-blue hover:prose-a:bg-brutal-yellow prose-img:border-3 prose-img:border-brutal-black prose-img:shadow-hard max-w-none font-sans">
+    <div class="prose prose-xl dark:prose-invert max-w-none font-sans
+      prose-headings:font-display prose-headings:font-black prose-headings:text-black dark:prose-headings:text-white
+      prose-p:text-gray-900 dark:prose-p:text-gray-200
+      prose-li:text-gray-900 dark:prose-li:text-gray-200
+      prose-strong:text-black dark:prose-strong:text-white
+      prose-code:text-brutal-purple prose-code:bg-gray-100 dark:prose-code:bg-gray-800 dark:prose-code:text-brutal-yellow
+      prose-a:text-brutal-blue prose-a:no-underline prose-a:font-bold hover:prose-a:bg-brutal-yellow hover:prose-a:text-black
+      prose-blockquote:border-l-brutal-purple prose-blockquote:text-gray-800 dark:prose-blockquote:text-gray-300
+      prose-img:border-3 prose-img:border-brutal-black dark:prose-img:border-white prose-img:shadow-hard
+      [&_h2]:text-black dark:[&_h2]:text-white
+      [&_h3]:text-black dark:[&_h3]:text-white
+      [&_p]:text-gray-900 dark:[&_p]:text-gray-200
+      [&_ul]:text-gray-900 dark:[&_ul]:text-gray-200
+      [&_ol]:text-gray-900 dark:[&_ol]:text-gray-200">
       <Content />
     </div>
-
   </article>
 </BaseLayout>

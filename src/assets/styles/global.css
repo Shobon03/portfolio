@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-/* Referenciando direto da pasta public (a barra inicial '/' é importante) */
+/* 1. DEFINIÇÃO DE FONTES */
 @font-face {
     font-family: "Cabinet Grotesk Variable";
     src: url("/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
@@ -25,35 +26,279 @@
     font-style: italic;
 }
 
+@layer base {
+    /* 2. VARIÁVEIS - MODO CLARO (Padrão) */
+    :root {
+        /* Cores do Sistema Brutalista */
+        --color-brutal-bg: #ffffff;
+        --color-brutal-black: #050505;
+        --color-brutal-purple: #a855f7;
+        --color-brutal-yellow: #ffd600;
+        --color-brutal-blue: #3b82f6;
+        --color-brutal-orange: #f97316;
+        --color-brutal-gray: #e5e5e5;
+
+        /* Grid Sutil Cinza */
+        --grid-color: rgba(128, 128, 128, 0.15);
+
+        /* Configuração do Typography (Prose) para Blog */
+        --tw-prose-body: #050505;
+        --tw-prose-headings: #050505;
+        --tw-prose-links: #3b82f6;
+        --tw-prose-code: #a855f7;
+        --tw-prose-pre-bg: #1e2939;
+        --tw-prose-pre-code: #ffffff;
+    }
+
+    /* 3. VARIÁVEIS - MODO ESCURO (Overrides) */
+    .dark {
+        /* Fundo vira quase preto, Preto vira Branco */
+        --color-brutal-bg: #121212;
+        --color-brutal-black: #ffffff;
+
+        /* Cores ajustadas para contraste no escuro */
+        --color-brutal-purple: #c084fc;
+        --color-brutal-yellow: #facc15;
+        --color-brutal-blue: #60a5fa;
+        --color-brutal-gray: #1e1e1e;
+
+        /* Grid Sutil Branco */
+        --grid-color: rgba(255, 255, 255, 0.1);
+
+        /* Prose Invertido */
+        --tw-prose-body: #e5e5e5;
+        --tw-prose-headings: #ffffff;
+        --tw-prose-links: #60a5fa;
+        --tw-prose-code: #facc15;
+        --tw-prose-pre-bg: #262626;
+    }
+
+    /* 4. APLICAÇÃO GLOBAL */
+    body {
+        background-color: var(--color-brutal-bg);
+        color: var(--color-brutal-black);
+
+        /* Transição suave ao trocar de tema */
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+
+        /* O Grid Infinito */
+        background-image:
+            linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+}
+
+/* 5. MAPEAMENTO PARA O TAILWIND V4 */
 @theme {
-    /* Mapeamento */
+    /* Conecta as classes do Tailwind (ex: bg-brutal-bg) às variáveis CSS acima */
+    --color-brutal-bg: var(--color-brutal-bg);
+    --color-brutal-black: var(--color-brutal-black);
+    --color-brutal-purple: var(--color-brutal-purple);
+    --color-brutal-yellow: var(--color-brutal-yellow);
+    --color-brutal-blue: var(--color-brutal-blue);
+    --color-brutal-orange: var(--color-brutal-orange);
+    --color-brutal-gray: var(--color-brutal-gray);
+
+    /* Sombras Hard */
+    --shadow-hard: 4px 4px 0px 0px var(--color-brutal-black);
+    --shadow-hard-sm: 2px 2px 0px 0px var(--color-brutal-black);
+    --shadow-hard-lg: 8px 8px 0px 0px var(--color-brutal-black);
+
+    /* Fontes */
     --font-display: "Cabinet Grotesk Variable", sans-serif;
     --font-sans: "Satoshi Variable", "Inter", sans-serif;
-
-    /* Cores Brutalistas */
-    --color-brutal-bg: #ffffff;
-    --color-brutal-black: #050505;
-    --color-brutal-purple: #a855f7;
-    --color-brutal-yellow: #ffd600;
-    --color-brutal-blue: #3b82f6;
-    --color-brutal-orange: #f97316;
-    --color-brutal-gray: #e5e5e5;
-
-    /* Sombras */
-    --shadow-hard: 4px 4px 0px 0px #050505;
-    --shadow-hard-sm: 2px 2px 0px 0px #050505;
-
-    /* Bordas */
     --border-width-3: 3px;
 }
 
-/* ... mantenha os @layer base e utilities como estavam ... */
-@layer base {
-    body {
-        @apply bg-brutal-bg text-brutal-black font-sans antialiased;
+@layer utilities {
+    .text-stroke {
+        -webkit-text-stroke: 2px var(--color-brutal-black);
+    }
+
+    .text-gradient-stroke {
+        position: relative;
+        display: inline-block;
+
+        color: transparent;
+        -webkit-text-stroke: 3px var(--color-brutal-black);
+        paint-order: stroke fill;
+    }
+
+    .text-gradient-stroke::before {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        background-image: linear-gradient(
+            to right,
+            var(--color-brutal-purple),
+            var(--color-brutal-blue)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-stroke: 0;
+        z-index: 1;
+    }
+
+    .animate-marquee {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 20s linear infinite;
+        user-select: none;
+    }
+
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+
+    @property --grid-color-anim {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.1);
+    }
+
+    .animate-grid-cyber {
         background-image:
-            linear-gradient(to right, #80808012 1px, transparent 1px),
-            linear-gradient(to bottom, #80808012 1px, transparent 1px);
-        background-size: 24px 24px;
+            linear-gradient(
+                to right,
+                var(--grid-color-anim) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                var(--grid-color-anim) 1px,
+                transparent 1px
+            );
+        background-size: 40px 40px;
+
+        animation:
+            grid-move 10s linear infinite,
+            grid-colors 30s ease-in-out infinite alternate;
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes grid-move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 40px;
+    }
+}
+
+@keyframes grid-colors {
+    0% {
+        /* Pink Neon Escuro */
+        --grid-color-anim: rgba(236, 72, 153, 0.2);
+    }
+    33% {
+        /* Ciano Neon Escuro */
+        --grid-color-anim: rgba(6, 182, 212, 0.2);
+    }
+    66% {
+        /* Amarelo Neon Escuro */
+        --grid-color-anim: rgba(250, 204, 21, 0.2);
+    }
+    100% {
+        /* Branco/Cinza Escuro */
+        --grid-color-anim: rgba(255, 255, 255, 0.15);
+    }
+}
+
+@layer components {
+    .prose pre {
+        @apply border-2 border-brutal-black rounded-none shadow-hard-sm;
+        background-color: #1e2939 !important;
+    }
+    .dark .prose pre {
+        @apply border-white shadow-none;
+        background-color: #1e2939 !important;
+    }
+
+    /* Força contraste no conteúdo do blog */
+    .prose h2,
+    .prose h3,
+    .prose h4 {
+        color: #050505 !important;
+    }
+
+    .dark .prose h2,
+    .dark .prose h3,
+    .dark .prose h4 {
+        color: #ffffff !important;
+    }
+
+    .prose p,
+    .prose li {
+        color: #1f2937 !important;
+    }
+
+    .dark .prose p,
+    .dark .prose li {
+        color: #e5e7eb !important;
+    }
+
+    .prose strong {
+        color: #050505 !important;
+    }
+
+    .dark .prose strong {
+        color: #ffffff !important;
+    }
+
+    .prose code {
+        background-color: #f3f4f6;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        color: #a855f7 !important;
+    }
+
+    .dark .prose code {
+        background-color: #1f2937;
+        color: #facc15 !important;
+    }
+
+    /* Força cor do título do post */
+    article header h1 {
+        color: #050505 !important;
+    }
+
+    .dark article header h1 {
+        color: #ffffff !important;
+    }
+
+    /* Força cor do HR (linha horizontal) */
+    .prose hr {
+        border-color: #050505 !important;
+        opacity: 1;
+    }
+
+    .dark .prose hr {
+        border-color: #ffffff !important;
+    }
+
+    /* Ajusta border do header */
+    article header {
+        border-bottom-color: #050505 !important;
+    }
+
+    .dark article header {
+        border-bottom-color: #ffffff !important;
     }
 }

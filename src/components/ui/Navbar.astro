@@ -1,0 +1,80 @@
+---
+import { Moon, Sun } from '@lucide/astro'; // <--- Importe aqui
+
+const navItems = [
+  { name: 'Início', path: '/' },
+  { name: 'Blog', path: '/blog' },
+];
+---
+
+<nav class="sticky top-0 z-50 w-full bg-brutal-bg border-b-3 border-brutal-black py-4 px-4 transition-colors duration-300">
+  <div class="max-w-screen-xl mx-auto flex justify-between items-center">
+
+    <a href="/" class="font-display font-black text-2xl uppercase tracking-tighter hover:text-brutal-purple transition-colors">
+      Matheus<span class="text-brutal-blue">.Dev</span>
+    </a>
+
+    <div class="flex items-center gap-6">
+      <ul class="hidden md:flex gap-6 font-bold text-sm uppercase tracking-widest">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.path} class="hover:underline decoration-4 underline-offset-4 decoration-brutal-yellow">
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        id="theme-toggle"
+        class="bg-brutal-black text-brutal-bg border-2 border-transparent hover:bg-brutal-bg hover:text-brutal-black hover:border-brutal-black p-2 shadow-hard-sm transition-all active:translate-y-[2px] active:shadow-none cursor-pointer"
+        aria-label="Alternar Modo Escuro"
+      >
+        <Sun id="sun-icon" class="w-5 h-5 hidden" />
+        <Moon id="moon-icon" class="w-5 h-5 block" />
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  const applyTheme = (theme) => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      // Mostra Sol, Esconde Lua
+      document.getElementById('sun-icon')?.classList.remove('hidden');
+      document.getElementById('moon-icon')?.classList.add('hidden');
+    } else {
+      document.documentElement.classList.remove('dark');
+      // Mostra Lua, Esconde Sol
+      document.getElementById('sun-icon')?.classList.add('hidden');
+      document.getElementById('moon-icon')?.classList.remove('hidden');
+    }
+    localStorage.setItem('theme', theme);
+  };
+
+  const handleToggle = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    applyTheme(isDark ? 'light' : 'dark');
+  };
+
+  const setupTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else {
+      applyTheme(systemDark ? 'dark' : 'light');
+    }
+
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+        btn.removeEventListener('click', handleToggle);
+        btn.addEventListener('click', handleToggle);
+    }
+  };
+
+  setupTheme();
+  document.addEventListener('astro:after-swap', setupTheme);
+</script>

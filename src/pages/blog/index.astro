@@ -1,45 +1,45 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// Pega todos os posts que não são rascunho (draft) e ordena por data
 const posts = (await getCollection('blog'))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const title = "Blog | Matheus.Dev";
+const title = 'Blog | Matheus.Dev';
 ---
 
 <BaseLayout title={title} description="Artigos sobre desenvolvimento e retro gaming.">
   <section class="py-12">
     <h1 class="font-display text-6xl font-black uppercase mb-12 border-b-3 border-brutal-black inline-block">
-      Knowledge Base
+      Base de Conhecimento
     </h1>
 
     <div class="space-y-4">
       {posts.map((post) => (
         <a href={`/blog/${post.slug}`} class="block group">
-          <article class="border-3 border-brutal-black p-6 hover:bg-brutal-yellow hover:shadow-hard transition-all flex flex-col md:flex-row justify-between gap-4 items-start md:items-center bg-white">
+          <article class="border-3 border-brutal-black p-6 bg-brutal-bg hover:bg-brutal-yellow hover:shadow-hard transition-all flex flex-col md:flex-row justify-between gap-4 items-start md:items-center group-hover:text-black">
 
             <div class="space-y-2">
               <div class="flex gap-2 flex-wrap">
                 {post.data.tags.map((tag) => (
-                  <span class="text-xs font-bold bg-brutal-black text-white px-2 py-1 uppercase">
+                  <span class="text-xs font-bold bg-brutal-black text-brutal-bg px-2 py-1 uppercase border border-transparent group-hover:border-black group-hover:bg-black group-hover:text-white
+                 dark:group-hover:border-white dark:group-hover:bg-white dark:group-hover:text-black ansition-colors">
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <h2 class="font-display text-3xl font-bold group-hover:underline decoration-4 underline-offset-4">
+              <h2 class="font-display text-3xl font-bold group-hover:underline decoration-4 underline-offset-4 decoration-black">
                 {post.data.title}
               </h2>
 
-              <p class="font-sans text-lg text-gray-600 font-medium max-w-2xl group-hover:text-black">
+              <p class="font-sans text-lg text-gray-600 dark:text-gray-400 font-medium max-w-2xl group-hover:text-black">
                 {post.data.description}
               </p>
             </div>
 
-            <div class="font-mono font-bold text-sm whitespace-nowrap border-l-2 border-brutal-black pl-4 md:pl-0 md:border-l-0">
+            <div class="font-mono font-bold text-sm whitespace-nowrap border-l-2 border-brutal-black pl-4 md:pl-0 md:border-l-0 md:self-center text-gray-500 group-hover:text-black">
               {post.data.pubDate.toLocaleDateString('pt-BR')}
             </div>
 

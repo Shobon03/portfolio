@@ -1,0 +1,56 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Dispara a cada push na main
+  push:
+    branches: [main]
+  # Permite disparar manualmente na aba Actions
+  workflow_dispatch:
+
+# Permissões necessárias para o GITHUB_TOKEN fazer o deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. Instala o Bun
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      # 2. Instala dependências (usando o bun.lockb)
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # 3. Builda o site (gera a pasta dist/)
+      - name: Build with Astro
+        run: bun run build
+
+      # 4. Upload dos artefatos para o GitHub Pages
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
