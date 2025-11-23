@@ -5,32 +5,31 @@ import HeroScene from '../components/3d/HeroScene';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { link } from '../utils/url-helper';
 
-// 1. Buscar posts recentes do Blog
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 2); // Pega apenas os 2 últimos
+  .slice(0, 2);
 
-// 2. Dados dos Projetos (Hardcoded por enquanto)
+const githubBase = 'https://github.com/Shobon03';
+
 const projects = [
   {
-    title: 'Secrets Vault',
+    title: 'Secrets Manager',
     description: 'Gerenciador de senhas Local-First com criptografia robusta.',
     tags: ['Rust', 'Tauri v2', 'SQLite', 'React'],
-    color: 'bg-brutal-purple', // Cor do hover
-    link: '#',
+    color: 'bg-brutal-purple',
+    link: `${githubBase}/secrets-manager`,
   },
   {
-    title: 'BIM Automation Plugins',
+    title: 'BIM Automation API',
     description:
-      'Plugins de alta performance para Revit e ArchiCAD focados em interoperabilidade IFC.',
-    tags: ['C#', 'C++', '.NET', 'Revit API'],
+      'API para aumento de interoperabilidade netre Revit e ArchiCAD utilizando a IFC.',
+    tags: ['TypeScript', 'Revit/Archicad Plugins'],
     color: 'bg-brutal-blue',
-    link: '#',
+    link: `${githubBase}/ts-ifc-api`,
   },
 ];
 
-// 3. Sua Stack (do README)
 const stack = [
   'TypeScript',
   'Rust',
@@ -48,12 +47,11 @@ const stack = [
   'Nginx',
   'AWS',
 ];
-const marqueeContent = [...stack, ...stack, ...stack, ...stack];
 ---
 
 <BaseLayout title="Matheus | Full-Stack Developer">
 
-  <div class="fixed inset-0 z-[-1] bg-brutal-bg animate-grid-cyber pointer-events-none"></div>
+  <div class="fixed -inset-10 z-[-1] bg-brutal-bg animate-grid-cyber pointer-events-none"></div>
 
   <section class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] border-b-3 border-brutal-black relative">
     <div class="p-8 flex flex-col justify-center space-y-6 relative overflow-hidden group">
@@ -70,7 +68,7 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
       </p>
 
       <div class="flex gap-4 pt-4 z-10">
-         <a href="#contact" class="bg-brutal-black text-brutal-bg px-6 py-3 font-bold border-2 border-brutal-black shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+         <a href="#contact" class="bg-brutal-bg px-6 py-3 font-bold border-2 border-brutal-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
           Entre em Contato
         </a>
       </div>
@@ -78,14 +76,14 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
 
     <div class="border-l-0 lg:border-l-3 border-brutal-black h-[500px] bg-brutal-bg relative overflow-hidden">
        <HeroScene client:load />
-       <div class="absolute bottom-4 right-4 bg-brutal-bg border-2 border-brutal-black px-2 py-1 text-xs font-bold shadow-hard-sm">
+       <div class="absolute bottom-4 right-4 bg-brutal-bg border-2 border-brutal-black px-2 py-1 text-xs font-bold shadow-hard-sm hidden md:block">
           ARRASTE
        </div>
     </div>
   </section>
 
   <section class="py-16 px-4 border-b-3 border-brutal-black bg-brutal-bg">
-    <div class="max-w-screen-xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <h2 class="font-display text-5xl font-black uppercase mb-12 flex items-center gap-4">
         <span class="w-8 h-8 bg-brutal-orange border-2 border-brutal-black shadow-hard-sm"></span>
         Projetos
@@ -106,9 +104,9 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
                   ))}
                 </div>
                 <h3 class="font-display text-3xl font-bold mb-2">{project.title}</h3>
-                <p class="text-gray-600 dark:text-gray-400 font-medium mb-6">{project.description}</p>
+                <p class="text-gray-600 dark:text-gray-400 font-medium mb-6 min-h-12">{project.description}</p>
 
-                <div class="inline-flex items-center font-bold underline decoration-2 underline-offset-4 group-hover:decoration-brutal-black">
+                <div class="inline-flex items-center font-bold underline decoration-2 underline-offset-4 group-hover:decoration-brutal-black self-end">
                   Ver Projeto
                 </div>
               </div>
@@ -121,22 +119,29 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
 
   <section class="py-8 border-b-3 border-brutal-black bg-brutal-yellow overflow-hidden">
     <div class="relative w-full max-w-full overflow-hidden">
-    <div class="animate-marquee flex items-center gap-8 pl-8">
-        {marqueeContent.map((tech) => (
-        <div class="flex items-center gap-8 shrink-0">
-            <span class="text-4xl lg:text-5xl font-display font-black text-black uppercase">
+      <div class="animate-marquee flex items-center gap-8">
+        {stack.map((tech) => (
+          <>
+            <span class="text-4xl lg:text-5xl font-display font-black text-black uppercase shrink-0">
                 {tech}
             </span>
-
-            <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent"></span>
-        </div>
+            <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent shrink-0"></span>
+          </>
         ))}
-    </div>
+        {stack.map((tech) => (
+          <>
+            <span class="text-4xl lg:text-5xl font-display font-black text-black uppercase shrink-0">
+                {tech}
+            </span>
+            <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent shrink-0"></span>
+          </>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="py-16 px-4 bg-brutal-bg">
-    <div class="max-w-screen-xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <div class="flex justify-between items-end mb-12">
         <h2 class="font-display text-5xl font-black uppercase flex items-center gap-4">
           <span class="w-8 h-8 bg-brutal-purple border-2 border-brutal-black shadow-hard-sm"></span>
@@ -150,16 +155,16 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
       <div class="grid gap-6">
         {recentPosts.map((post) => (
           <a href={link(`/blog/${post.slug}`)} class="group">
-            <article class="border-3 border-brutal-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 hover:bg-brutal-black hover:text-brutal-bg transition-colors duration-300">
+            <article class="border-3 border-brutal-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 group-hover:bg-brutal-black group-hover:text-brutal-bg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-hard">
               <div>
-                <h3 class="font-display text-2xl font-bold mb-2 group-hover:text-brutal-yellow transition-colors">
+                <h3 class="font-display text-2xl font-bold mb-2 group-hover:text-brutal-purple transition-colors">
                   {post.data.title}
                 </h3>
                 <p class="font-mono text-sm opacity-70">
                   {post.data.pubDate.toLocaleDateString('pt-BR')} — {post.data.tags.join(', ')}
                 </p>
               </div>
-              <div class="w-10 h-10 border-2 border-current flex items-center justify-center rounded-full group-hover:rotate-45 transition-transform">
+              <div class="w-10 h-10 border-2 border-current flex items-center justify-center rounded-full group-hover:-rotate-45 transition-transform">
                   <ArrowRight color="currentColor" size="1.5rem" />
               </div>
             </article>

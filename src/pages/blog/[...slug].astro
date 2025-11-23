@@ -13,9 +13,39 @@ export async function getStaticPaths() {
 
 const post = Astro.props;
 const { Content } = await post.render();
+
+const siteUrl = Astro.site || new URL(Astro.url.origin);
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: post.data.updatedDate
+    ? post.data.updatedDate.toISOString()
+    : post.data.pubDate.toISOString(),
+  image: post.data.heroImage
+    ? new URL(post.data.heroImage, siteUrl).href
+    : new URL('/og-image.png', siteUrl).href,
+  url: canonicalUrl.href,
+  author: {
+    '@type': 'Person',
+    name: 'Matheus',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Matheus.Dev',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', siteUrl).href,
+    },
+  },
+};
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} jsonLd={jsonLd}>
   <article class="max-w-3xl mx-auto py-12">
 
     <header class="mb-12 border-b-3 border-[#050505] dark:border-white pb-8">

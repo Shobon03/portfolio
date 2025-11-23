@@ -8,12 +8,32 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const title = 'Blog | Matheus.Dev';
+const description = 'Artigos sobre desenvolvimento e retro gaming.';
+
+const siteUrl = Astro.site || new URL(Astro.url.origin);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description: description,
+  url: Astro.url.href,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: posts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: new URL(`${base}blog/${post.slug}`, siteUrl).href,
+      name: post.data.title,
+    })),
+  },
+};
 ---
 
-<BaseLayout title={title} description="Artigos sobre desenvolvimento e retro gaming.">
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
   <section class="py-12">
     <h1 class="font-display text-6xl font-black uppercase mb-12 border-b-3 border-brutal-black inline-block">
-      Base de Conhecimento
+        Blog
     </h1>
 
     <div class="space-y-4">
