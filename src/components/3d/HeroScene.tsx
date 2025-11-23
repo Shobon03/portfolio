@@ -85,25 +85,57 @@ function GeometricShape({
 
 export default function HeroScene() {
   const isMobile = useIsMobile();
+  const [contextLost, setContextLost] = useState(false);
+
+  const handleContextLost = (event: Event) => {
+    event.preventDefault();
+    setContextLost(true);
+    console.warn('WebGL context lost. Attempting to restore...');
+  };
+
+  const handleContextRestored = () => {
+    setContextLost(false);
+    console.info('WebGL context restored.');
+  };
 
   return (
     <div
       className={`h-[500px] w-full bg-transparent ${!isMobile ? 'cursor-grab active:cursor-grabbing' : ''}`}
     >
-      <Canvas gl={{ alpha: true, antialias: true }}>
-        <PerspectiveCamera makeDefault position={[0, 0, 6]} />
-
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-
-        <Float
-          speed={2}
-          rotationIntensity={isMobile ? 0.5 : 1.5}
-          floatIntensity={isMobile ? 1 : 2}
+      {contextLost ? (
+        <div className='flex items-center justify-center h-full text-gray-400'>
+          <p>Recarregando visualização 3D...</p>
+        </div>
+      ) : (
+        <Canvas
+          gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
+          onCreated={({ gl }) => {
+            gl.domElement.addEventListener(
+              'webglcontextlost',
+              handleContextLost,
+              false,
+            );
+            gl.domElement.addEventListener(
+              'webglcontextrestored',
+              handleContextRestored,
+              false,
+            );
+          }}
         >
-          <GeometricShape position={[0, 0, 0]} isMobile={isMobile} />
-        </Float>
-      </Canvas>
+          <PerspectiveCamera makeDefault position={[0, 0, 6]} />
+
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} />
+
+          <Float
+            speed={2}
+            rotationIntensity={isMobile ? 0.5 : 1.5}
+            floatIntensity={isMobile ? 1 : 2}
+          >
+            <GeometricShape position={[0, 0, 0]} isMobile={isMobile} />
+          </Float>
+        </Canvas>
+      )}
     </div>
   );
 }

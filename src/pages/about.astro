@@ -1,0 +1,59 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import CareerCarousel from '../components/CareerCarousel.astro';
+import Navbar from '../components/ui/Navbar.astro';
+
+import '../assets/styles/global.css';
+
+const title = 'Sobre | Matheus.Dev';
+const description =
+  'Conheça minha trajetória profissional e educacional como desenvolvedor Full-Stack';
+---
+
+<!doctype html>
+<html lang="pt-br" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+        <ClientRouter />
+
+        <script is:inline>
+            // Aplica tema imediatamente antes do render
+            (function() {
+                const savedTheme = localStorage.getItem('theme');
+                const theme = savedTheme || 'dark';
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                if (!savedTheme) {
+                    localStorage.setItem('theme', 'dark');
+                }
+            })();
+
+            // Mantém o tema durante transições
+            document.addEventListener('astro:after-swap', function() {
+                const savedTheme = localStorage.getItem('theme');
+                const theme = savedTheme || 'dark';
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+        </script>
+	</head>
+
+    <body class="font-sans antialiased overflow-x-hidden bg-none">
+        <Navbar />
+        <!-- PÁGINA FULLSCREEN SEM PADDING -->
+        <main class="w-full">
+            <CareerCarousel />
+        </main>
+	</body>
+</html>

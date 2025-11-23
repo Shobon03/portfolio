@@ -1,0 +1,348 @@
+---
+import { ArrowLeft, ArrowRight } from '@lucide/astro';
+
+const experiences = {
+  work: [
+    {
+      id: 0,
+      company: 'IngenioLab',
+      role: 'Junior Web Developer',
+      period: 'Ago 2023 - Presente',
+      location: 'São Paulo',
+      desc: 'Desenvolvimento de arquiteturas escaláveis e microsserviços. Onde transformo café em APIs robustas e pipelines de CI/CD.',
+      stack: ['Node.js', 'TypeScript', 'React', 'AWS', 'Docker'],
+      color: 'bg-brutal-purple',
+      textColor: 'text-brutal-purple',
+    },
+    {
+      id: 1,
+      company: 'FlixWeb',
+      role: 'Web Developer Internship',
+      period: 'Jan 2022 - Jun 2023',
+      location: 'São Paulo',
+      desc: 'Minha base de lançamento. Desenvolvimento Full-Stack com foco em PHP e integração de sistemas legados com interfaces modernas.',
+      stack: ['PHP', 'SQL', 'JavaScript', 'WordPress'],
+      color: 'bg-brutal-blue',
+      textColor: 'text-brutal-blue',
+    },
+  ],
+  edu: [
+    {
+      id: 0,
+      company: 'UNIP',
+      role: 'Ciência da Computação',
+      period: 'Jan 2022 - Dez 2025',
+      location: 'Universidade Paulista',
+      desc: 'Bacharelado focado em fundamentos sólidos de algoritmos, estrutura de dados e engenharia de software.',
+      stack: ['Algorithms', 'Data Structures', 'Software Engineering'],
+      color: 'bg-brutal-yellow',
+      textColor: 'text-brutal-yellow',
+    },
+    {
+      id: 1,
+      company: 'IFSP',
+      role: 'Técnico em Informática',
+      period: 'Jan 2019 - Dez 2021',
+      location: 'Instituto Federal de SP',
+      desc: 'Fundamentos de programação, redes de computadores e manutenção de hardware.',
+      stack: ['Networks', 'Hardware', 'Logic'],
+      color: 'bg-brutal-orange',
+      textColor: 'text-brutal-orange',
+    },
+  ],
+};
+---
+
+<section class="relative w-full min-h-screen flex flex-col overflow-hidden transition-colors duration-300">
+
+  <!-- 1. BACKGROUND: Grid Animado (Mais sutil) -->
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <div class="absolute inset-0 animate-grid-cyber"></div>
+  </div>
+
+  <!-- 2. CONTEÚDO PRINCIPAL -->
+  <div class="relative z-10 flex-1 flex flex-col items-center pt-24 md:pt-8 px-4 md:px-8 w-full max-w-7xl mx-auto pb-8">
+
+    <!-- HEADER: Abas Brutalistas -->
+    <!--
+      MODO LIGHT: Fundo Branco, Borda Preta.
+      MODO DARK: Fundo Cinza Escuro (#1a1a1a), Borda Branca.
+    -->
+    <div class="flex gap-2 md:gap-4 mb-6 w-full max-w-3xl justify-between transition-colors duration-300">
+      <button
+        id="tab-work"
+        class="flex-1 py-3 px-3 md:py-4 md:px-6 font-display font-black text-base md:text-xl uppercase tracking-wider transition-all
+               bg-brutal-bg text-brutal-black
+               border-3 border-brutal-black
+               hover:shadow-hard
+               active:translate-y-1 active:shadow-none
+               cursor-pointer
+               data-[active=true]:bg-brutal-orange data-[active=true]:text-black data-[active=true]:shadow-none"
+        data-active="true"
+        onclick="switchTab('work')"
+      >
+        Experiência
+      </button>
+
+      <button
+        id="tab-edu"
+        class="flex-1 py-3 px-3 md:py-4 md:px-6 font-display font-black text-base md:text-xl uppercase tracking-wider transition-all
+               bg-brutal-bg text-brutal-black
+               border-3 border-brutal-black
+               hover:shadow-hard
+               active:translate-y-1 active:shadow-none
+               cursor-pointer
+               data-[active=true]:bg-brutal-purple data-[active=true]:text-white data-[active=true]:shadow-none"
+        data-active="false"
+        onclick="switchTab('edu')"
+      >
+        Educação
+      </button>
+    </div>
+
+    <!-- CAROUSEL AREA -->
+    <div class="relative w-full max-w-5xl aspect-auto flex items-start md:items-center justify-center min-h-[520px] md:min-h-[400px]">
+
+      <!-- WORK CARDS -->
+      <div id="container-work" class="carousel-container w-full h-full relative">
+        {experiences.work.map((item, index) => (
+          <div
+            class="card-item absolute inset-0 w-full h-full flex items-start md:items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300"
+            data-index={index}
+          >
+            <!-- CARD: bg-white (Light) / bg-zinc-900 (Dark) -->
+            <div class="w-full max-w-3xl bg-brutal-bg border-3 border-brutal-black p-4 md:p-8 lg:p-10 relative overflow-hidden transition-colors duration-300">
+
+                <!-- Barra Lateral Colorida -->
+                <div class={`absolute left-0 top-0 bottom-0 w-3 md:w-4 ${item.color} border-r-3 border-brutal-black`}></div>
+
+                <div class="pl-4 md:pl-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-5 border-b-2 border-brutal-black pb-3 md:pb-4">
+                        <div>
+                            <h3 class="font-display text-2xl md:text-4xl lg:text-5xl font-black uppercase text-brutal-black leading-none">{item.company}</h3>
+                            <p class="font-mono font-bold text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1">{item.location}</p>
+                        </div>
+                        <span class="mt-2 md:mt-0 inline-block bg-brutal-black text-brutal-bg px-2 md:px-3 py-1 font-mono text-xs md:text-sm font-bold whitespace-nowrap">
+                            {item.period}
+                        </span>
+                    </div>
+
+                    <div class="mb-5 md:mb-7">
+                        <h4 class={`text-lg md:text-2xl font-bold uppercase mb-3 md:mb-4 ${item.textColor}`}>{item.role}</h4>
+                        <p class="text-sm md:text-lg font-medium text-brutal-black leading-relaxed">
+                            {item.desc}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="font-mono text-xs font-bold uppercase text-gray-400 mb-3 md:mb-4">Stack Utilizada</p>
+                        <div class="flex flex-wrap gap-2 md:gap-3">
+                        {item.stack.map((tech) => (
+                            <span class="bg-brutal-bg text-brutal-black border-2 border-brutal-black px-2 md:px-3 py-1 font-bold font-mono text-xs md:text-sm uppercase shadow-hard-sm hover:translate-y-[-2px] transition-all cursor-default">
+                            {tech}
+                            </span>
+                        ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- EDU CARDS -->
+      <div id="container-edu" class="carousel-container w-full h-full relative hidden">
+         {experiences.edu.map((item, index) => (
+          <div
+            class="card-item absolute inset-0 w-full h-full flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300"
+            data-index={index}
+          >
+            <div class="w-full max-w-3xl bg-brutal-bg border-3 border-brutal-black p-4 md:p-8 lg:p-10 relative overflow-hidden transition-colors duration-300">
+
+                 <!-- Barra Lateral Colorida -->
+                <div class={`absolute left-0 top-0 bottom-0 w-3 md:w-4 ${item.color} border-r-3 border-brutal-black`}></div>
+
+                <div class="pl-4 md:pl-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-5 border-b-2 border-brutal-black pb-3 md:pb-4">
+                        <div>
+                            <h3 class="font-display text-2xl md:text-4xl lg:text-5xl font-black uppercase text-brutal-black leading-none">{item.company}</h3>
+                            <p class="font-mono font-bold text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1">{item.location}</p>
+                        </div>
+                         <span class="mt-2 md:mt-0 inline-block bg-brutal-black text-brutal-bg px-2 md:px-3 py-1 font-mono text-xs md:text-sm font-bold whitespace-nowrap">
+                            {item.period}
+                        </span>
+                    </div>
+
+                    <div class="mb-5 md:mb-7">
+                        <h4 class={`text-lg md:text-2xl font-bold uppercase mb-3 md:mb-4 ${item.textColor}`}>{item.role}</h4>
+                        <p class="text-sm md:text-lg font-medium text-brutal-black leading-relaxed">
+                            {item.desc}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="font-mono text-xs font-bold uppercase text-gray-400 mb-3 md:mb-4">Conceitos Chave</p>
+                        <div class="flex flex-wrap gap-2 md:gap-3">
+                        {item.stack.map((tech) => (
+                            <span class="bg-brutal-bg text-brutal-black border-2 border-brutal-black px-2 md:px-3 py-1 font-bold font-mono text-xs md:text-sm uppercase shadow-hard-sm hover:translate-y-[-2px] transition-all cursor-default">
+                            {tech}
+                            </span>
+                        ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- NAV CONTROLS -->
+    <div class="w-full max-w-3xl flex items-center justify-between mt-6 mb-4 md:mb-8">
+        <button
+            id="btn-prev"
+            class="flex items-center gap-1 md:gap-2 px-3 md:px-6 py-2 md:py-3
+                   cursor-pointer
+                   bg-brutal-bg text-brutal-black
+                   border-3 border-brutal-black
+                   font-bold uppercase text-xs md:text-base
+                   hover:shadow-hard
+                   active:translate-y-1 active:shadow-none
+                   transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:shadow-none"
+            aria-label="Anterior"
+        >
+            <span class="hidden md:inline-flex items-center justify-between gap-3"><ArrowLeft /> Anterior</span>
+            <span class="md:hidden"><ArrowLeft /></span>
+        </button>
+
+        <div class="flex gap-2">
+             <div class="font-mono font-black text-base md:text-lg text-brutal-black">
+                <span id="indicator-current">1</span> / <span id="indicator-total">2</span>
+             </div>
+        </div>
+
+        <button
+            id="btn-next"
+            class="flex items-center gap-1 md:gap-2 px-3 md:px-6 py-2 md:py-3
+                   cursor-pointer
+                   bg-brutal-bg text-brutal-black
+                   border-3 border-brutal-black
+                   font-bold uppercase text-xs md:text-base
+                   hover:shadow-hard
+                   active:translate-y-1 active:shadow-none
+                   transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:shadow-none"
+            aria-label="Próximo"
+        >
+            <span class="hidden md:inline-flex items-center justify-between gap-3">Próximo <ArrowRight /></span>
+            <span class="md:hidden"><ArrowRight /></span>
+        </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // 1. Verifica se estamos na página correta (se os elementos existem)
+    const containerWork = document.getElementById('container-work');
+    if (!containerWork) return; // Se não achar o container, para aqui (evita erro em outras páginas)
+
+    const containerEdu = document.getElementById('container-edu');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const indicatorCurrent = document.getElementById('indicator-current');
+    const indicatorTotal = document.getElementById('indicator-total');
+    const tabWork = document.getElementById('tab-work');
+    const tabEdu = document.getElementById('tab-edu');
+
+    // 2. Reinicia o Estado Local para essa visita
+    let state = {
+        tab: 'work',
+        index: 0,
+        data: {
+            work: containerWork.querySelectorAll('.card-item').length,
+            edu: containerEdu ? containerEdu.querySelectorAll('.card-item').length : 0
+        }
+    };
+
+    // 3. Função de Renderização
+    function render() {
+        const activeContainer = state.tab === 'work' ? containerWork : containerEdu;
+        const hiddenContainer = state.tab === 'work' ? containerEdu : containerWork;
+        const totalItems = state.data[state.tab];
+
+        // Alterna Containers
+        activeContainer.classList.remove('hidden');
+        hiddenContainer.classList.add('hidden');
+
+        // Alterna Cards com Animação
+        const cards = activeContainer.querySelectorAll('.card-item');
+        cards.forEach((card, idx) => {
+            if (idx === state.index) {
+                // Entrada (Show)
+                card.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-8', '-translate-x-8');
+                card.classList.add('opacity-100', 'z-10', 'translate-x-0');
+            } else {
+                // Saída (Hide)
+                card.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+                card.classList.remove('opacity-100', 'z-10', 'translate-x-0');
+            }
+        });
+
+        // Controles
+        if (btnPrev) btnPrev.disabled = state.index === 0;
+        if (btnNext) btnNext.disabled = state.index === totalItems - 1;
+
+        // Indicadores
+        if (indicatorCurrent) indicatorCurrent.innerText = state.index + 1;
+        if (indicatorTotal) indicatorTotal.innerText = totalItems;
+
+        // Abas
+        if (state.tab === 'work') {
+            tabWork.setAttribute('data-active', 'true');
+            tabEdu.setAttribute('data-active', 'false');
+        } else {
+            tabEdu.setAttribute('data-active', 'true');
+            tabWork.setAttribute('data-active', 'false');
+        }
+    }
+
+    // 4. Função auxiliar para trocar abas
+    const handleTabSwitch = (newTab) => {
+        state.tab = newTab;
+        state.index = 0;
+        render();
+    };
+
+    // 5. Reatribui os Event Listeners
+    tabWork.onclick = () => handleTabSwitch('work');
+    tabEdu.onclick = () => handleTabSwitch('edu');
+
+    btnPrev.onclick = () => {
+        if (state.index > 0) {
+            state.index--;
+            render();
+        }
+    };
+
+    btnNext.onclick = () => {
+        const total = state.data[state.tab];
+        if (state.index < total - 1) {
+            state.index++;
+            render();
+        }
+    };
+
+    // Teclado (Removemos o listener antigo antes de adicionar pra não duplicar)
+    const handleKeydown = (e) => {
+        if (e.key === 'ArrowLeft' && !btnPrev.disabled) btnPrev.click();
+        if (e.key === 'ArrowRight' && !btnNext.disabled) btnNext.click();
+    };
+    document.removeEventListener('keydown', handleKeydown);
+    document.addEventListener('keydown', handleKeydown);
+
+    // 6. Render Inicial
+    render();
+  });
+</script>
