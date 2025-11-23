@@ -1,6 +1,8 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/ui/Navbar.astro';
+import { joinPath } from '../utils/url-helper';
+
 import '../assets/styles/global.css';
 
 interface Props {
@@ -43,7 +45,7 @@ const finalJsonLd = jsonLd || defaultJsonLd;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={joinPath("favicon.svg")} />
 
 		<title>{title}</title>
 
