@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { base } from '../../utils/url-helper';
 
 const posts = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
@@ -17,7 +18,7 @@ const title = 'Blog | Matheus.Dev';
 
     <div class="space-y-4">
       {posts.map((post) => (
-        <a href={`/blog/${post.slug}`} class="block group">
+        <a href={`${base}blog/${post.slug}`} class="block group">
           <article class="border-3 border-brutal-black p-6 bg-brutal-bg hover:bg-brutal-yellow hover:shadow-hard transition-all flex flex-col md:flex-row justify-between gap-4 items-start md:items-center group-hover:text-black">
 
             <div class="space-y-2">

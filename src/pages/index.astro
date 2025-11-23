@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { ArrowRight } from '@lucide/astro';
 import HeroScene from '../components/3d/HeroScene';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { link } from '../utils/url-helper';
 
 // 1. Buscar posts recentes do Blog
 const allPosts = await getCollection('blog');
@@ -141,14 +142,14 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
           <span class="w-8 h-8 bg-brutal-purple border-2 border-brutal-black shadow-hard-sm"></span>
           Posts recentes
         </h2>
-        <a href="/blog" class="hidden md:block font-bold hover:underline decoration-4 underline-offset-4 decoration-brutal-purple">
+        <a href={link('blog')} class="hidden md:block font-bold hover:underline decoration-4 underline-offset-4 decoration-brutal-purple">
           Ver todos os posts
         </a>
       </div>
 
       <div class="grid gap-6">
         {recentPosts.map((post) => (
-          <a href={`/blog/${post.slug}`} class="group">
+          <a href={link(`/blog/${post.slug}`)} class="group">
             <article class="border-3 border-brutal-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 hover:bg-brutal-black hover:text-brutal-bg transition-colors duration-300">
               <div>
                 <h3 class="font-display text-2xl font-bold mb-2 group-hover:text-brutal-yellow transition-colors">
@@ -167,7 +168,7 @@ const marqueeContent = [...stack, ...stack, ...stack, ...stack];
       </div>
 
       <div class="mt-8 md:hidden">
-         <a href="/blog" class="block text-center font-bold border-2 border-brutal-black p-3 shadow-hard-sm">
+         <a href={link('blog')} class="block text-center font-bold border-2 border-brutal-black p-3 shadow-hard-sm">
           Ver todos os posts
         </a>
       </div>

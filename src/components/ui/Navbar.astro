@@ -1,9 +1,10 @@
 ---
 import { Moon, Sun } from '@lucide/astro'; // <--- Importe aqui
+import { joinPath } from '../../utils/url-helper';
 
 const navItems = [
-  { name: 'Início', path: '/' },
-  { name: 'Blog', path: '/blog' },
+  { name: 'Início', path: joinPath('') },
+  { name: 'Blog', path: joinPath('blog') },
 ];
 ---
 
