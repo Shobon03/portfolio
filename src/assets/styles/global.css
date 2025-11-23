@@ -11,6 +11,14 @@
 }
 
 @font-face {
+    font-family: "Clash Display Variable";
+    src: url("/fonts/ClashDisplay-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
     font-family: "Satoshi Variable";
     src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
     font-weight: 300 900;
@@ -48,6 +56,17 @@
         --tw-prose-code: #a855f7;
         --tw-prose-pre-bg: #1e2939;
         --tw-prose-pre-code: #ffffff;
+    }
+
+    /* Cor de seleção de texto */
+    ::selection {
+        background-color: #fb923c;
+        color: #050505;
+    }
+
+    ::-moz-selection {
+        background-color: #fb923c;
+        color: #050505;
     }
 
     /* 3. VARIÁVEIS - MODO ESCURO (Overrides) */
@@ -109,6 +128,7 @@
 
     /* Fontes */
     --font-display: "Cabinet Grotesk Variable", sans-serif;
+    --font-clash: "Clash Display Variable", sans-serif;
     --font-sans: "Satoshi Variable", "Inter", sans-serif;
     --border-width-3: 3px;
 }
@@ -147,15 +167,43 @@
         z-index: 1;
     }
 
-    .animate-marquee {
+    /* Marquee Container */
+    .marquee-container {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .marquee-track {
         display: flex;
-        white-space: nowrap;
-        animation: marquee 40s linear infinite;
+        gap: 3rem;
+        animation: marquee-scroll 40s linear infinite;
+        width: fit-content;
+    }
+
+    .marquee-track:hover {
+        animation-play-state: paused;
+    }
+
+    .marquee-track-reverse {
+        animation: marquee-scroll-reverse 40s linear infinite;
+    }
+
+    .marquee-item {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-shrink: 0;
         user-select: none;
     }
 
-    .animate-marquee:hover {
-        animation-play-state: paused;
+    .marquee-item span:first-child {
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+    }
+
+    .marquee-item:hover span:first-child {
+        opacity: 1;
     }
 
     @property --grid-color-anim {
@@ -185,12 +233,21 @@
     }
 }
 
-@keyframes marquee {
+@keyframes marquee-scroll {
     0% {
         transform: translateX(0);
     }
     100% {
         transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-scroll-reverse {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }
 
@@ -302,4 +359,8 @@
     .dark article header {
         border-bottom-color: #ffffff !important;
     }
+}
+
+.swiper-container-free-mode > .swiper-wrapper {
+    transition-timing-function: linear;
 }

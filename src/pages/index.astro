@@ -30,7 +30,7 @@ const projects = [
   },
 ];
 
-const stack = [
+const languages = [
   'TypeScript',
   'Rust',
   'Go',
@@ -38,14 +38,18 @@ const stack = [
   'React',
   'Next.js',
   'Astro',
-  'DevOps',
   'Tauri',
+];
+
+const technologies = [
+  'DevOps',
   'Bun',
   'Docker',
   'Linux',
   'Postgres',
   'Nginx',
   'AWS',
+  'Kubernetes',
 ];
 ---
 
@@ -68,7 +72,7 @@ const stack = [
       </p>
 
       <div class="flex gap-4 pt-4 z-10">
-         <a href="#contact" class="bg-brutal-bg px-6 py-3 font-bold border-2 border-brutal-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+         <a href="#contact" class="bg-brutal-bg px-6 py-3 font-bold border-2 border-brutal-black hover:shadow-hard active:translate-y-1 active:shadow-none transition-all">
           Entre em Contato
         </a>
       </div>
@@ -92,7 +96,7 @@ const stack = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project) => (
           <a href={project.link} class="group block">
-            <article class="h-full border-3 border-brutal-black bg-brutal-bg p-8 relative transition-all hover:-translate-y-1 hover:shadow-hard">
+            <article class="h-full border-3 border-brutal-black bg-brutal-bg p-8 relative transition-all hover:-translate-y-1 hover:shadow-hard active:translate-y-0 active:shadow-none">
               <div class={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity ${project.color}`}></div>
 
               <div class="relative z-10">
@@ -117,24 +121,49 @@ const stack = [
     </div>
   </section>
 
-  <section class="py-8 border-b-3 border-brutal-black bg-brutal-yellow overflow-hidden">
-    <div class="relative w-full max-w-full overflow-hidden">
-      <div class="animate-marquee flex items-center gap-8">
-        {stack.map((tech) => (
-          <>
-            <span class="text-4xl lg:text-5xl font-display font-black text-black uppercase shrink-0">
-                {tech}
+  <!-- Languages Marquee: Right to Left -->
+  <section class="py-8 border-b-3 border-brutal-black bg-brutal-yellow overflow-hidden relative">
+    <div class="marquee-container">
+      <div class="marquee-track">
+        {languages.map((tech) => (
+          <div class="marquee-item">
+            <span class="text-4xl lg:text-5xl font-clash font-black text-black uppercase whitespace-nowrap">
+              {tech}
             </span>
-            <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent shrink-0"></span>
-          </>
+            <!-- <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent shrink-0"></span> -->
+          </div>
         ))}
-        {stack.map((tech) => (
-          <>
-            <span class="text-4xl lg:text-5xl font-display font-black text-black uppercase shrink-0">
-                {tech}
+        {languages.map((tech) => (
+          <div class="marquee-item">
+            <span class="text-4xl lg:text-5xl font-clash font-black text-black uppercase whitespace-nowrap">
+              {tech}
             </span>
-            <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent shrink-0"></span>
-          </>
+            <!-- <span class="w-4 h-4 rounded-full border-3 border-black bg-transparent shrink-0"></span> -->
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies Marquee: Left to Right -->
+  <section class="py-8 border-b-3 border-brutal-black bg-brutal-purple overflow-hidden relative">
+    <div class="marquee-container">
+      <div class="marquee-track marquee-track-reverse">
+        {technologies.map((tech) => (
+          <div class="marquee-item">
+            <span class="text-4xl lg:text-5xl font-display font-black text-white uppercase whitespace-nowrap">
+              {tech}
+            </span>
+            <!-- <span class="w-4 h-4 rounded-full border-3 border-white bg-transparent shrink-0"></span> -->
+          </div>
+        ))}
+        {technologies.map((tech) => (
+          <div class="marquee-item">
+            <span class="text-4xl lg:text-5xl font-display font-black text-white uppercase whitespace-nowrap">
+              {tech}
+            </span>
+            <!-- <span class="w-4 h-4 rounded-full border-3 border-white bg-transparent shrink-0"></span> -->
+          </div>
         ))}
       </div>
     </div>
@@ -155,7 +184,7 @@ const stack = [
       <div class="grid gap-6">
         {recentPosts.map((post) => (
           <a href={link(`/blog/${post.slug}`)} class="group">
-            <article class="border-3 border-brutal-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 group-hover:bg-brutal-black group-hover:text-brutal-bg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-hard">
+            <article class="border-3 border-brutal-black p-6 flex flex-col md:flex-row justify-between items-center gap-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-hard active:translate-y-0 active:shadow-none">
               <div>
                 <h3 class="font-display text-2xl font-bold mb-2 group-hover:text-brutal-purple transition-colors">
                   {post.data.title}
@@ -173,7 +202,7 @@ const stack = [
       </div>
 
       <div class="mt-8 md:hidden">
-         <a href={link('blog')} class="block text-center font-bold border-2 border-brutal-black p-3 shadow-hard-sm">
+         <a href={link('blog')} class="block text-center font-bold border-2 border-brutal-black p-3 hover:shadow-hard active:translate-y-1 active:shadow-none transition-all">
           Ver todos os posts
         </a>
       </div>
