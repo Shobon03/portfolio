@@ -21,6 +21,22 @@ const randomNames: string[] = [
   'GRAIN OF DUST IN SPACE',
 ];
 const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
+
+const { pathname } = Astro.url;
+
+const tabs = [
+  { name: 'Home', url: '/' },
+  { name: 'About', url: '/about' },
+  { name: 'Projects', url: '/projects' },
+  { name: 'Blog', url: '/blog' },
+];
+
+const getTabClass = (url: string) => {
+  const isActive = url === '/' ? pathname === '/' : pathname.startsWith(url);
+  return isActive
+    ? 'glossy-tab-active border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-white no-underline shadow-(--shadow-web2) transition-all active:translate-y-px active:shadow-(--shadow-inset-panel)'
+    : 'glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 no-underline transition-all hover:text-base-dark active:translate-y-px active:shadow-(--shadow-inset-panel)';
+};
 ---
 
 <header class='w-full'>
@@ -36,9 +52,6 @@ const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
       >
         <Menu />
       </button>
-      <!-- <div class=" text-base-dark font-black size-8 sm:size-10 border-2 border-white rounded-sm shadow-sm overflow-hidden">
-          <img src="https://avatars.githubusercontent.com/u/66133043?v=4" class="size-8 sm:size-10" />
-      </div> -->
       <div>
         <h1
           class='font-bricolage text-sm leading-none font-bold tracking-tight text-white sm:text-lg'
@@ -60,30 +73,13 @@ const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
   <div
     class='flex gap-1 overflow-x-auto border-b border-gray-400 bg-[#D1D5DB] px-4 pt-1 font-bricolage shadow-sm'
   >
-    <a
-      href='/'
-      class='glossy-tab-active border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-white no-underline shadow-(--shadow-web2) transition-all active:translate-y-px active:shadow-(--shadow-inset-panel)'
-    >
-      Home
-    </a>
-    <a
-      href='/about'
-      class='glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 no-underline transition-all hover:text-base-dark active:translate-y-px active:shadow-(--shadow-inset-panel)'
-    >
-      About
-    </a>
-    <a
-      href='/projects'
-      class='glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 no-underline transition-all hover:text-base-dark active:translate-y-px active:shadow-(--shadow-inset-panel)'
-    >
-      Projects
-    </a>
-    <a
-      href='/blog'
-      class='glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 no-underline transition-all hover:text-base-dark active:translate-y-px active:shadow-(--shadow-inset-panel)'
-    >
-      Blog
-    </a>
+    {
+      tabs.map((tab) => (
+        <a href={tab.url} class={getTabClass(tab.url)}>
+          {tab.name}
+        </a>
+      ))
+    }
   </div>
 
   <!-- Breadcrumbs Bar -->
@@ -91,8 +87,24 @@ const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
     class='flex items-center gap-2 overflow-x-auto border-b border-gray-300 bg-[#F3F4F6] px-4 py-1 text-[11px] font-medium whitespace-nowrap text-gray-500'
   >
     <a href='/' class='text-blue-600 hover:underline'>Home</a>
-    <span>&gt;</span>
-    <span class='font-bold text-gray-900'>Overview</span>
+    {
+      pathname !== '/' && (
+        <>
+          <span>&gt;</span>
+          <span class='font-bold text-gray-900 capitalize'>
+            {pathname.split('/')[1]}
+          </span>
+        </>
+      )
+    }
+    {
+      pathname === '/' && (
+        <>
+          <span>&gt;</span>
+          <span class='font-bold text-gray-900 capitalize'>Overview</span>
+        </>
+      )
+    }
     <span class='ml-auto hidden text-gray-400 italic sm:inline-block'>
       Last update: Apr 22, 2026
     </span>
