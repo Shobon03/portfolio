@@ -1,93 +1,123 @@
 ---
 import {
-	ChevronRight,
-	LayoutDashboard,
-	House,
-	Rss,
-	BadgeInfo,
-	Binary,
-} from "@lucide/astro";
+  ChevronRight,
+  LayoutDashboard,
+  House,
+  Rss,
+  BadgeInfo,
+  Binary,
+} from '@lucide/astro';
 
 const sections: {
-	title: string;
-	items: {
-		name: string;
-		icon?: typeof LayoutDashboard;
-		url?: string;
-		description?: string;
-		date?: string;
-	}[];
+  title: string;
+  items: {
+    name: string;
+    icon?: typeof LayoutDashboard;
+    url?: string;
+    description?: string;
+    date?: string;
+  }[];
 }[] = [
-	{
-		title: "Quick Navigation",
-		items: [
-			{ name: "Home", icon: House },
-			{ name: "About", icon: BadgeInfo },
-			{ name: "Projects", icon: Binary },
-			{ name: "Blog", icon: Rss },
-		],
-	},
-	// {
-	// 	title: "Recent Blog Posts",
-	// 	items: [
-	// 		{
-	// 			name: "Post 1",
-	// 			url: "/blog/post-1",
-	// 			date: "2026-01-01",
-	// 			description: "Lorem ipsum dolor sit amet",
-	// 		},
-	// 		{
-	// 			name: "Post 2",
-	// 			url: "/blog/post-2",
-	// 			date: "2026-01-02",
-	// 			description: "Lorem ipsum dolor sit amet",
-	// 		},
-	// 	],
-	// },
-	// {
-	// 	title: "Featured Projects",
-	// 	items: [
-	// 		{ name: "P1", url: "/projects/portfolio" },
-	// 		{ name: "P2", url: "/projects/" },
-	// 		{ name: "P3", url: "/projects/" },
-	// 		{ name: "P4", url: "/projects/" },
-	// 	],
-	// },
+  {
+    title: 'Quick Navigation',
+    items: [
+      { name: 'Home', icon: House },
+      { name: 'About', icon: BadgeInfo },
+      { name: 'Projects', icon: Binary },
+      { name: 'Blog', icon: Rss },
+    ],
+  },
+  // {
+  // 	title: "Recent Blog Posts",
+  // 	items: [
+  // 		{
+  // 			name: "Post 1",
+  // 			url: "/blog/post-1",
+  // 			date: "2026-01-01",
+  // 			description: "Lorem ipsum dolor sit amet",
+  // 		},
+  // 		{
+  // 			name: "Post 2",
+  // 			url: "/blog/post-2",
+  // 			date: "2026-01-02",
+  // 			description: "Lorem ipsum dolor sit amet",
+  // 		},
+  // 	],
+  // },
+  // {
+  // 	title: "Featured Projects",
+  // 	items: [
+  // 		{ name: "P1", url: "/projects/portfolio" },
+  // 		{ name: "P2", url: "/projects/" },
+  // 		{ name: "P3", url: "/projects/" },
+  // 		{ name: "P4", url: "/projects/" },
+  // 	],
+  // },
 ];
 ---
-<aside id="sidebar-menu" class="hidden lg:flex w-full lg:w-70 shrink-0 border-b lg:border-r lg:border-b-0 border-gray-400 bg-[#EEF2F6] min-h-0 lg:min-h-screen flex-col gap-4 p-3 shadow-(--shadow-web2) [&.mobile-open]:flex">
-  {sections.map(section => (
-    <div class="border border-gray-400 rounded-xs bg-white shadow-sm overflow-hidden collapsible-section">
-      <div class="panel-header text-white text-[11px] font-bold px-2 py-1 flex items-center justify-between border-b border-black/20 uppercase tracking-tighter ">
-        <span class="font-bricolage">{section.title}</span>
-        <span class="bg-white/20 px-1.5 rounded-xs text-[10px] cursor-pointer select-none toggle-btn font-mono font-bold">[-]</span>
-      </div>
-      <div class="p-1 space-y-0.5 section-content">
-        {section.items.map(item => (
-          <a href={item.url || "#"} class:list={["flex gap-2 px-2 py-1.5 text-[11px] font-medium text-blue-800 hover:bg-purple-100/50 transition-colors border-b border-gray-100 last:border-none group", item.description ? "items-start" : "items-center"]}>
-            <ChevronRight size={10} class="text-blue-800 group-hover:translate-x-0.5 transition-transform mt-0.5" />
-            <div class="flex flex-col flex-1">
-              <div class="flex items-center gap-1.5">
-                {item.icon && <item.icon size={12} class="text-gray-600" />}
-                <span>{item.name}</span>
+
+<aside
+  id='sidebar-menu'
+  class='hidden min-h-0 w-full shrink-0 flex-col gap-4 border-b border-gray-400 bg-[#EEF2F6] p-3 shadow-(--shadow-web2) lg:flex lg:min-h-screen lg:w-70 lg:border-r lg:border-b-0 [&.mobile-open]:flex'
+>
+  {
+    sections.map((section) => (
+      <div class='collapsible-section overflow-hidden rounded-xs border border-gray-400 bg-white shadow-sm'>
+        <div class='panel-header flex items-center justify-between border-b border-black/20 px-2 py-1 text-[11px] font-bold tracking-tighter text-white uppercase'>
+          <span class='font-bricolage'>{section.title}</span>
+          <span class='toggle-btn cursor-pointer rounded-xs bg-white/20 px-1.5 font-mono text-[10px] font-bold select-none'>
+            [-]
+          </span>
+        </div>
+        <div class='section-content space-y-0.5 p-1'>
+          {section.items.map((item) => (
+            <a
+              href={item.url || '#'}
+              class:list={[
+                'group flex gap-2 border-b border-gray-100 px-2 py-1.5 text-[11px] font-medium text-blue-800 transition-colors last:border-none hover:bg-purple-100/50',
+                item.description ? 'items-start' : 'items-center',
+              ]}
+            >
+              <ChevronRight
+                size={10}
+                class='mt-0.5 text-blue-800 transition-transform group-hover:translate-x-0.5'
+              />
+              <div class='flex flex-1 flex-col'>
+                <div class='flex items-center gap-1.5'>
+                  {item.icon && <item.icon size={12} class='text-gray-600' />}
+                  <span>{item.name}</span>
+                </div>
+                {item.description && (
+                  <span class='mt-0.5 text-[10px] leading-tight font-normal text-gray-600'>
+                    {item.description}
+                  </span>
+                )}
+                {item.date && (
+                  <span class='mt-1 self-end font-mono text-[9px] text-gray-500'>
+                    {item.date}
+                  </span>
+                )}
               </div>
-              {item.description && <span class="text-[10px] text-gray-600 font-normal leading-tight mt-0.5">{item.description}</span>}
-              {item.date && <span class="text-[9px] text-gray-500 self-end mt-1 font-mono">{item.date}</span>}
-            </div>
-          </a>
-        ))}
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
-  ))}
+    ))
+  }
 
   <!-- Stats Box -->
-  <div class="mt-auto border border-gray-400 rounded-xs bg-[#E5E7EB] p-3 text-[10px] text-gray-700">
-    <div class="font-bold border-b border-gray-400 pb-1 mb-2 uppercase text-xs flex items-center gap-1 font-bricolage">
-      <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+  <div
+    class='mt-auto rounded-xs border border-gray-400 bg-[#E5E7EB] p-3 text-[10px] text-gray-700'
+  >
+    <div
+      class='mb-2 flex items-center gap-1 border-b border-gray-400 pb-1 font-bricolage text-xs font-bold uppercase'
+    >
+      <div class='h-2 w-2 animate-pulse rounded-full bg-blue-500'></div>
       System Stats
     </div>
-    <div class="grid grid-cols-2 gap-y-1">
-      <span class="font-bold">TO-DO</span> <span>mon amour</span>
+    <div class='grid grid-cols-2 gap-y-1'>
+      <span class='font-bold'>TO-DO</span>
+      <span>mon amour</span>
     </div>
   </div>
 </aside>
@@ -95,7 +125,7 @@ const sections: {
 <script>
   const sections = document.querySelectorAll('.collapsible-section');
 
-  sections.forEach(section => {
+  sections.forEach((section) => {
     const btn = section.querySelector('.toggle-btn');
     const content = section.querySelector('.section-content');
 
