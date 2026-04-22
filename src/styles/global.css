@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+    --color-base-dark: #0d112d;
+    --color-accent-purple: #8e29d6;
+    --color-metallic-gray: #aca9bc;
+    --color-light-cream: #fbecae;
+    --color-copper: #cc6c24;
+
+    --shadow-web2:
+        0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-inset-panel: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@layer base {
+    body {
+        @apply bg-[#E5E7EB] text-base-dark antialiased; /* Fundo cinza claro típico de portais */
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+}
+
+@layer utilities {
+    .glossy-header {
+        background: linear-gradient(
+            to bottom,
+            var(--color-accent-purple) 0%,
+            #5b039e 100%
+        );
+        border-bottom: 2px solid #390061;
+    }
+    .glossy-tab {
+        background: linear-gradient(to bottom, #ffffff 0%, #d1d5db 100%);
+    }
+    .glossy-tab-active {
+        background: linear-gradient(to bottom, #fbecae 0%, #eab308 100%);
+    }
+    .panel-header {
+        background: linear-gradient(to bottom, #4f51c1 0%, #4e44a3 100%);
+    }
+}

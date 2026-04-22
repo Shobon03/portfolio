@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+import GlassHeader from "../components/GlassHeader.astro";
+import Sidebar from "../components/Sidebar.astro";
+
+interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="flex flex-col min-h-screen max-w-7xl mx-auto">
+    <GlassHeader />
+    <div class="flex flex-1 overflow-hidden">
+      <Sidebar />
+      <main class="flex-1 overflow-y-auto pl-4 py-4">
+        <div class="max-w-5xl mx-auto w-full">
+          <slot />
+        </div>
+      </main>
+    </div>
+    <!-- Footer Bar -->
+    <footer class="bg-[#F3F4F6] border-t border-gray-300 p-2 px-4 text-[10px] text-gray-500 flex justify-between items-center">
+      <span>shobon03's portfolio v1.0.0</span>
+      <div class="flex gap-4 uppercase font-bold tracking-tighter">
+        <a href="#" class="hover:text-blue-600 text-copper italic">Status: Online</a>
+      </div>
+    </footer>
+  </body>
+</html>

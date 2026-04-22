@@ -1,0 +1,20 @@
+---
+interface Props {
+	title?: string;
+	class?: string;
+}
+const { title, class: className } = Astro.props;
+---
+<div class:list={[
+  "border border-gray-400 bg-white rounded-xs shadow-sm overflow-hidden",
+  className
+]}>
+  {title && (
+    <div class="panel-header text-white text-[12px] font-bold px-2 py-1 flex items-center justify-between border-b border-black/20 shadow-sm">
+      {title}
+    </div>
+  )}
+  <div class="p-4 bg-linear-to-b from-white to-gray-50">
+    <slot />
+  </div>
+</div>

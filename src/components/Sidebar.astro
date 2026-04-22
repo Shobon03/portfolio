@@ -1,0 +1,100 @@
+---
+import {
+	ChevronRight,
+	LayoutDashboard,
+	Notebook,
+	Search,
+	Briefcase,
+	House,
+	FolderOpen,
+	Folder,
+	Rss,
+	BadgeInfo,
+} from "@lucide/astro";
+
+const sections: {
+	title: string;
+	items: {
+		name: string;
+		icon?: typeof LayoutDashboard;
+		url?: string;
+		description?: string;
+		date?: string;
+	}[];
+}[] = [
+	{
+		title: "Quick Navigation",
+		items: [
+			{ name: "Home", icon: House },
+			{ name: "About", icon: BadgeInfo },
+			{ name: "Projects", icon: Folder },
+			{ name: "Blog", icon: Rss },
+			{ name: "Search", icon: Search },
+		],
+	},
+	{
+		title: "Recent Blog Posts",
+		items: [
+			{
+				name: "Post 1",
+				url: "/blog/post-1",
+				date: "2026-01-01",
+				description: "Lorem ipsum dolor sit amet",
+			},
+			{
+				name: "Post 2",
+				url: "/blog/post-2",
+				date: "2026-01-02",
+				description: "Lorem ipsum dolor sit amet",
+			},
+		],
+	},
+	{
+		title: "Portfolio Items (x)",
+		items: [
+			{ name: "Lorem" },
+			{ name: "Lorem" },
+			{ name: "Lorem" },
+			{ name: "Lorem" },
+		],
+	},
+];
+---
+<aside class="w-70 shrink-0 border-r border-gray-400 bg-[#EEF2F6] min-h-screen flex flex-col gap-4 p-3 shadow-(--shadow-web2)">
+  {sections.map(section => (
+    <div class="border border-gray-400 rounded-xs bg-white shadow-sm overflow-hidden">
+      <div class="panel-header text-white text-[11px] font-bold px-2 py-1 flex items-center justify-between border-b border-black/20 uppercase tracking-tighter ">
+        <span>{section.title}</span>
+        <span class="bg-white/20 px-1.5 rounded-xs text-[10px] cursor-pointer select-none">[-]</span>
+      </div>
+      <div class="p-1 space-y-0.5">
+        {section.items.map(item => (
+          <a href={item.url || "#"} class="flex items-start gap-2 px-2 py-1.5 text-[11px] font-medium text-blue-800 hover:bg-[#FBECAE] transition-colors border-b border-gray-100 last:border-none group">
+            <ChevronRight size={10} class="text-blue-800 group-hover:translate-x-0.5 transition-transform mt-0.5" />
+            <div class="flex flex-col flex-1">
+              <div class="flex items-center gap-1.5">
+                {item.icon && <item.icon size={12} class="text-gray-600" />}
+                <span>{item.name}</span>
+              </div>
+              {item.description && <span class="text-[10px] text-gray-600 font-normal leading-tight mt-0.5">{item.description}</span>}
+              {item.date && <span class="text-[9px] text-gray-500 self-end mt-1 font-mono">{item.date}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  ))}
+
+  <!-- Stats Box -->
+  <div class="mt-auto border border-gray-400 rounded-xs bg-[#E5E7EB] p-3 text-[10px] text-gray-700">
+    <div class="font-bold border-b border-gray-400 pb-1 mb-2 uppercase text-xs flex items-center gap-1">
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+      System Stats
+    </div>
+    <div class="grid grid-cols-2 gap-y-1">
+      <span class="font-bold">Projects:</span> <span>14 active</span>
+      <span class="font-bold">Last Commit:</span> <span>11:30 PM</span>
+      <span class="font-bold">Disk Usage:</span> <span>312.4 MB</span>
+    </div>
+  </div>
+</aside>
