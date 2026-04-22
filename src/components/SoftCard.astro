@@ -1,20 +1,27 @@
 ---
+import { Github } from "simple-icons-astro";
+
 interface Props {
 	title?: string;
 	class?: string;
 }
 const { title, class: className } = Astro.props;
+
+const icons: Record<string, typeof Github> = {
+	github: Github,
+};
 ---
 <div class:list={[
-  "border border-gray-400 bg-white rounded-xs shadow-sm overflow-hidden",
+  "border border-gray-400 bg-linear-to-b from-white to-gray-100 rounded-xs shadow-sm overflow-hidden flex flex-col",
   className
 ]}>
   {title && (
-    <div class="panel-header text-white text-[12px] font-bold px-2 py-1 flex items-center justify-between border-b border-black/20 shadow-sm">
+    <div class="panel-header text-white font-bricolage text-[12px] font-bold px-2 py-1 flex items-center gap-1 border-b border-black/20 shadow-sm shrink-0">
+        {icons[title.toLowerCase()] && <icons[title.toLowerCase()] size={16} />}
       {title}
     </div>
   )}
-  <div class="p-4 bg-linear-to-b from-white to-gray-50">
+  <div class="p-4  flex-1 flex flex-col">
     <slot />
   </div>
 </div>

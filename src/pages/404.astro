@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SoftCard from '../components/SoftCard.astro';
+import SoftButton from '../components/SoftButton.astro';
+import { BadgeX, ChevronLeft } from '@lucide/astro';
+---
+
+<BaseLayout title='shobon03 | Home'>
+  <div class='space-y-6'>
+    <SoftCard
+      title='Seems that this page does not exist... damn'
+      class='mx-auto md:max-w-3/5'
+    >
+      <h2 class='flex items-center gap-2 text-xl font-bold text-gray-800'>
+        <BadgeX size={20} />
+        404 Page Not Found
+      </h2>
+      <p class='mb-4 text-sm leading-relaxed text-gray-600'>
+        The requested page could not be found.
+      </p>
+      <SoftButton href='/' class='w-full gap-2 py-3'>
+        <ChevronLeft size={16} /> Go to Home
+      </SoftButton>
+    </SoftCard>
+  </div>
+</BaseLayout>

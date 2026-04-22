@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/roboto";
+@import "@fontsource-variable/roboto-condensed";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/gelasio";
+@import "@fontsource/space-mono";
 
 @theme {
     --color-base-dark: #0d112d;
@@ -10,12 +16,22 @@
     --shadow-web2:
         0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-inset-panel: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    /* Font Families */
+    --font-inter: "Inter Variable", sans-serif;
+    --font-roboto: "Roboto Variable", sans-serif;
+    --font-roboto-condensed: "Roboto Condensed Variable", sans-serif;
+    --font-bricolage: "Bricolage Grotesque Variable", sans-serif;
+    --font-gelasio: "Gelasio Variable", serif;
+    --font-space: "Space Mono", monospace;
+
+    --font-mono: var(--font-space);
 }
 
 @layer base {
     body {
         @apply bg-[#E5E7EB] text-base-dark antialiased; /* Fundo cinza claro típico de portais */
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: var(--font-inter);
     }
 }
 
@@ -32,7 +48,7 @@
         background: linear-gradient(to bottom, #ffffff 0%, #d1d5db 100%);
     }
     .glossy-tab-active {
-        background: linear-gradient(to bottom, #fbecae 0%, #eab308 100%);
+        background: linear-gradient(to bottom, #a855f7 0%, #7e22ce 100%);
     }
     .panel-header {
         background: linear-gradient(to bottom, #4f51c1 0%, #4e44a3 100%);

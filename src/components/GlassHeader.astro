@@ -1,36 +1,60 @@
 ---
+import { Menu } from "@lucide/astro";
+
+const randomNames: string[] = [
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"VISITOR",
+	"ANONYMOUS",
+	"DEAR",
+	"GRAIN OF DUST IN SPACE",
+];
+const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
 ---
 <header class="w-full">
   <!-- Top Branding Bar -->
-  <div class="bg-base-dark p-3 flex justify-between items-center glossy-header border-b border-black">
+  <div class="bg-base-dark px-4 py-2 flex justify-between items-center glossy-header border-b border-black">
     <div class="flex items-center gap-3">
-      <div class="bg-amber-400 text-base-dark font-black size-10 border-2 border-white rounded-sm shadow-sm overflow-hidden">
-          <img src="https://avatars.githubusercontent.com/u/66133043?v=4" class="size-10" />
-      </div>
+      <button id="mobile-menu-toggle" class="lg:hidden text-white p-1 hover:bg-white/10 rounded-sm cursor-pointer" aria-label="Toggle Menu">
+          <Menu />
+      </button>
+      <!-- <div class=" text-base-dark font-black size-8 sm:size-10 border-2 border-white rounded-sm shadow-sm overflow-hidden">
+          <img src="https://avatars.githubusercontent.com/u/66133043?v=4" class="size-8 sm:size-10" />
+      </div> -->
       <div>
-        <h1 class="text-white font-bold text-lg leading-none tracking-tight">shobon03's Portfolio</h1>
-        <p class="text-[10px] text-metallic-gray uppercase font-bold tracking-widest mt-1"></p>
+        <h1 class="text-white font-bold font-bricolage text-sm sm:text-lg leading-none tracking-tight">shobon03's WebSite</h1>
       </div>
     </div>
     <div class="hidden md:flex text-white text-[10px] gap-4 items-center uppercase font-semibold">
-      <span>Welcome back, <strong class="text-light-cream">Visitor</strong></span>
+      <span>Welcome back, <strong class="text-light-cream">{randomName}</strong></span>
     </div>
   </div>
 
   <!-- Tabs Navigation -->
-  <div class="bg-[#D1D5DB] border-b border-gray-400 pt-1 flex gap-1 px-2 overflow-x-auto shadow-sm">
-    <a href="/" class="glossy-tab-active border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-base-dark shadow-(--shadow-web2)">Home</a>
-    <a href="/about" class="glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 hover:text-base-dark">About</a>
-    <a href="/projects" class="glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 hover:text-base-dark">Projects</a>
-    <a href="/blog" class="glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 hover:text-base-dark">Blog</a>
+  <div class="bg-[#D1D5DB] border-b border-gray-400 pt-1 flex gap-1 px-4 overflow-x-auto shadow-sm font-bricolage">
+    <a href="/" class="glossy-tab-active transition-all active:shadow-(--shadow-inset-panel) active:translate-y-px no-underline border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-white shadow-(--shadow-web2)">Home</a>
+    <a href="/about" class="glossy-tab transition-all active:shadow-(--shadow-inset-panel) active:translate-y-px no-underline border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 hover:text-base-dark">About</a>
+    <a href="/projects" class="glossy-tab transition-all active:shadow-(--shadow-inset-panel) active:translate-y-px no-underline border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 hover:text-base-dark">Projects</a>
+    <a href="/blog" class="glossy-tab transition-all active:shadow-(--shadow-inset-panel) active:translate-y-px no-underline border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 hover:text-base-dark">Blog</a>
 
   </div>
 
   <!-- Breadcrumbs Bar -->
-  <div class="bg-[#F3F4F6] border-b border-gray-300 px-4 py-1 flex items-center gap-2 text-[11px] text-gray-500 font-medium">
+  <div class="bg-[#F3F4F6] border-b border-gray-300 px-4 py-1 flex items-center gap-2 text-[11px] text-gray-500 font-medium whitespace-nowrap overflow-x-auto">
     <a href="/" class="text-blue-600 hover:underline">Home</a>
     <span>&gt;</span>
-    <span class="text-gray-900 font-bold">Dashboard Overview</span>
-    <span class="ml-auto text-gray-400 italic">Last update: Apr 22, 2026</span>
+    <span class="text-gray-900 font-bold">Overview</span>
+    <span class="hidden sm:inline-block ml-auto text-gray-400 italic">Last update: Apr 22, 2026</span>
   </div>
 </header>

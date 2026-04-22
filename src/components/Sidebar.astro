@@ -2,14 +2,10 @@
 import {
 	ChevronRight,
 	LayoutDashboard,
-	Notebook,
-	Search,
-	Briefcase,
 	House,
-	FolderOpen,
-	Folder,
 	Rss,
 	BadgeInfo,
+	Binary,
 } from "@lucide/astro";
 
 const sections: {
@@ -27,49 +23,48 @@ const sections: {
 		items: [
 			{ name: "Home", icon: House },
 			{ name: "About", icon: BadgeInfo },
-			{ name: "Projects", icon: Folder },
+			{ name: "Projects", icon: Binary },
 			{ name: "Blog", icon: Rss },
-			{ name: "Search", icon: Search },
 		],
 	},
-	{
-		title: "Recent Blog Posts",
-		items: [
-			{
-				name: "Post 1",
-				url: "/blog/post-1",
-				date: "2026-01-01",
-				description: "Lorem ipsum dolor sit amet",
-			},
-			{
-				name: "Post 2",
-				url: "/blog/post-2",
-				date: "2026-01-02",
-				description: "Lorem ipsum dolor sit amet",
-			},
-		],
-	},
-	{
-		title: "Portfolio Items (x)",
-		items: [
-			{ name: "Lorem" },
-			{ name: "Lorem" },
-			{ name: "Lorem" },
-			{ name: "Lorem" },
-		],
-	},
+	// {
+	// 	title: "Recent Blog Posts",
+	// 	items: [
+	// 		{
+	// 			name: "Post 1",
+	// 			url: "/blog/post-1",
+	// 			date: "2026-01-01",
+	// 			description: "Lorem ipsum dolor sit amet",
+	// 		},
+	// 		{
+	// 			name: "Post 2",
+	// 			url: "/blog/post-2",
+	// 			date: "2026-01-02",
+	// 			description: "Lorem ipsum dolor sit amet",
+	// 		},
+	// 	],
+	// },
+	// {
+	// 	title: "Featured Projects",
+	// 	items: [
+	// 		{ name: "P1", url: "/projects/portfolio" },
+	// 		{ name: "P2", url: "/projects/" },
+	// 		{ name: "P3", url: "/projects/" },
+	// 		{ name: "P4", url: "/projects/" },
+	// 	],
+	// },
 ];
 ---
-<aside class="w-70 shrink-0 border-r border-gray-400 bg-[#EEF2F6] min-h-screen flex flex-col gap-4 p-3 shadow-(--shadow-web2)">
+<aside id="sidebar-menu" class="hidden lg:flex w-full lg:w-70 shrink-0 border-b lg:border-r lg:border-b-0 border-gray-400 bg-[#EEF2F6] min-h-0 lg:min-h-screen flex-col gap-4 p-3 shadow-(--shadow-web2) [&.mobile-open]:flex">
   {sections.map(section => (
-    <div class="border border-gray-400 rounded-xs bg-white shadow-sm overflow-hidden">
+    <div class="border border-gray-400 rounded-xs bg-white shadow-sm overflow-hidden collapsible-section">
       <div class="panel-header text-white text-[11px] font-bold px-2 py-1 flex items-center justify-between border-b border-black/20 uppercase tracking-tighter ">
-        <span>{section.title}</span>
-        <span class="bg-white/20 px-1.5 rounded-xs text-[10px] cursor-pointer select-none">[-]</span>
+        <span class="font-bricolage">{section.title}</span>
+        <span class="bg-white/20 px-1.5 rounded-xs text-[10px] cursor-pointer select-none toggle-btn font-mono font-bold">[-]</span>
       </div>
-      <div class="p-1 space-y-0.5">
+      <div class="p-1 space-y-0.5 section-content">
         {section.items.map(item => (
-          <a href={item.url || "#"} class="flex items-start gap-2 px-2 py-1.5 text-[11px] font-medium text-blue-800 hover:bg-[#FBECAE] transition-colors border-b border-gray-100 last:border-none group">
+          <a href={item.url || "#"} class:list={["flex gap-2 px-2 py-1.5 text-[11px] font-medium text-blue-800 hover:bg-purple-100/50 transition-colors border-b border-gray-100 last:border-none group", item.description ? "items-start" : "items-center"]}>
             <ChevronRight size={10} class="text-blue-800 group-hover:translate-x-0.5 transition-transform mt-0.5" />
             <div class="flex flex-col flex-1">
               <div class="flex items-center gap-1.5">
@@ -87,14 +82,28 @@ const sections: {
 
   <!-- Stats Box -->
   <div class="mt-auto border border-gray-400 rounded-xs bg-[#E5E7EB] p-3 text-[10px] text-gray-700">
-    <div class="font-bold border-b border-gray-400 pb-1 mb-2 uppercase text-xs flex items-center gap-1">
+    <div class="font-bold border-b border-gray-400 pb-1 mb-2 uppercase text-xs flex items-center gap-1 font-bricolage">
       <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
       System Stats
     </div>
     <div class="grid grid-cols-2 gap-y-1">
-      <span class="font-bold">Projects:</span> <span>14 active</span>
-      <span class="font-bold">Last Commit:</span> <span>11:30 PM</span>
-      <span class="font-bold">Disk Usage:</span> <span>312.4 MB</span>
+      <span class="font-bold">TO-DO</span> <span>mon amour</span>
     </div>
   </div>
 </aside>
+
+<script>
+  const sections = document.querySelectorAll('.collapsible-section');
+
+  sections.forEach(section => {
+    const btn = section.querySelector('.toggle-btn');
+    const content = section.querySelector('.section-content');
+
+    if (btn && content) {
+      btn.addEventListener('click', () => {
+        const isHidden = content.classList.toggle('hidden');
+        btn.textContent = isHidden ? '[+]' : '[-]';
+      });
+    }
+  });
+</script>

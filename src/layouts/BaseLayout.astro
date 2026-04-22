@@ -7,6 +7,30 @@ interface Props {
 	title: string;
 }
 const { title } = Astro.props;
+
+const randomStatus: string[] = [
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"ONLINE",
+	"I HOPE IT'S ONLINE",
+	"CAN YOU SEE THIS?",
+	"=3",
+	"MEOW",
+	"OH MY, IT'S... ONLINE?",
+];
+const randomStatusMessage =
+	randomStatus[Math.floor(Math.random() * randomStatus.length)];
 ---
 <!doctype html>
 <html lang="pt-br">
@@ -16,22 +40,34 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="flex flex-col min-h-screen max-w-7xl mx-auto">
+  <body class="flex flex-col min-h-screen max-w-342 mx-auto bg-gray-100">
     <GlassHeader />
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-col lg:flex-row flex-1">
       <Sidebar />
-      <main class="flex-1 overflow-y-auto pl-4 py-4">
+      <main class="flex-1 px-4 py-4 lg:py-4">
         <div class="max-w-5xl mx-auto w-full">
           <slot />
         </div>
       </main>
     </div>
     <!-- Footer Bar -->
-    <footer class="bg-[#F3F4F6] border-t border-gray-300 p-2 px-4 text-[10px] text-gray-500 flex justify-between items-center">
-      <span>shobon03's portfolio v1.0.0</span>
+    <footer class="bg-[#F3F4F6] border-t border-gray-300 py-1 px-2 text-[10px] text-gray-500 flex justify-between items-center">
+      <span class="font-bricolage font-extrabold italic">Code is poetry written in logic.</span>
+      <span>🄯 shobon03 {new Date().getFullYear()}</span>
       <div class="flex gap-4 uppercase font-bold tracking-tighter">
-        <a href="#" class="hover:text-blue-600 text-copper italic">Status: Online</a>
+        <a href="#" class=" text-copper italic">Status: {randomStatusMessage}</a>
       </div>
     </footer>
+
+    <script>
+      const toggle = document.getElementById('mobile-menu-toggle');
+      const sidebar = document.getElementById('sidebar-menu');
+
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', () => {
+          sidebar.classList.toggle('mobile-open');
+        });
+      }
+    </script>
   </body>
 </html>
