@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import GlassHeader from '../components/GlassHeader.astro';
 import Sidebar from '../components/Sidebar.astro';
+import ogImage from '../assets/images/og.png';
 
 interface Props {
   title: string;
@@ -38,6 +39,39 @@ const randomStatusMessage =
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
+    <meta
+      name='description'
+      content='Welcome to my little place in the great WWW.'
+    />
+    <meta property='og:title' content="Shobon03's WebSite" />
+    <meta
+      name='og:description'
+      content='Welcome to my little place in the great WWW.'
+    />
+    <meta property='og:image' content={new URL(ogImage.src, Astro.site)} />
+    <meta
+      property='og:image:alt'
+      content="Screenshot of shobon03's WebSite showing a purple header and three cards with welcoming text: 'Hi there!', 'Contents', and 'Please make yourself at home!'"
+    />
+    <meta property='twitter:title' content="Shobon03's WebSite" />
+    <meta
+      name='twitter:description'
+      content='Welcome to my little place in the great WWW.'
+    />
+    <meta property='twitter:image' content={new URL(ogImage.src, Astro.site)} />
+    <meta
+      property='twitter:image:alt'
+      content="Screenshot of shobon03's WebSite showing a purple header and three cards with welcoming text: 'Hi there!', 'Contents', and 'Please make yourself at home!'"
+    />
+
+    <meta
+      http-equiv='Content-Security-Policy'
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://avatars.githubusercontent.com https://github.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-src 'none'; object-src 'none'; frame-ancestors 'none';"
+    />
+    <meta http-equiv='X-Frame-Options' content='DENY' />
+    <meta name='referrer' content='strict-origin-when-cross-origin' />
+    <meta http-equiv='X-Content-Type-Options' content='nosniff' />
+
     <link rel='icon' type='image/svg+xml' href='/portfolio/favicon.svg' />
     <title>{title}</title>
   </head>
