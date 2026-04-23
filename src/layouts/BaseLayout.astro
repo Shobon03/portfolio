@@ -1,71 +1,90 @@
 ---
-import "../styles/global.css";
-import GlassHeader from "../components/GlassHeader.astro";
-import Sidebar from "../components/Sidebar.astro";
+import '../styles/global.css';
+import GlassHeader from '../components/GlassHeader.astro';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
-	title: string;
+  title: string;
 }
 const { title } = Astro.props;
 
 const randomStatus: string[] = [
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"ONLINE",
-	"I HOPE IT'S ONLINE",
-	"CAN YOU SEE THIS?",
-	"=3",
-	"MEOW",
-	"OH MY, IT'S... ONLINE?",
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  'ONLINE',
+  "I HOPE IT'S ONLINE",
+  'CAN YOU SEE THIS?',
+  '=3',
+  'MEOW, MRRR',
+  "OH MY, IT'S... ONLINE?",
 ];
 const randomStatusMessage =
-	randomStatus[Math.floor(Math.random() * randomStatus.length)];
+  randomStatus[Math.floor(Math.random() * randomStatus.length)];
 ---
+
 <!doctype html>
-<html lang="pt-br">
+<html lang='pt-br'>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/portfolio/favicon.svg' />
     <title>{title}</title>
   </head>
-  <body class="flex flex-col min-h-screen max-w-342 mx-auto bg-gray-100">
+  <body class='mx-auto flex min-h-screen max-w-342 flex-col bg-gray-100'>
     <GlassHeader />
-    <div class="flex flex-col lg:flex-row flex-1">
+    <div class='flex flex-1 flex-col lg:flex-row'>
       <Sidebar />
-      <main class="flex-1 px-4 py-4 lg:py-4">
-        <div class="max-w-5xl mx-auto w-full">
+      <main class='flex-1 px-4 py-4 lg:py-4'>
+        <div class='mx-auto w-full max-w-6xl'>
           <slot />
         </div>
       </main>
     </div>
     <!-- Footer Bar -->
-    <footer class="bg-[#F3F4F6] border-t border-gray-300 py-1 px-2 text-[10px] text-gray-500 flex justify-between items-center">
-      <span class="font-bricolage font-extrabold italic">Code is poetry written in logic.</span>
-      <span>🄯 shobon03 {new Date().getFullYear()}</span>
-      <div class="flex gap-4 uppercase font-bold tracking-tighter">
-        <a href="#" class=" text-copper italic">Status: {randomStatusMessage}</a>
+    <footer
+      class='relative flex items-center justify-between border-t border-gray-300 bg-[#F3F4F6] px-2 py-1 text-[10px] text-gray-500'>
+      <span class='font-bricolage font-extrabold italic'>
+        Code is poetry written in logic.
+      </span>
+      <span class='absolute left-1/2 -translate-x-1/2'>
+        🄯 shobon03 {new Date().getFullYear()}
+      </span>
+      <div class='flex gap-4 font-bold tracking-tighter uppercase'>
+        <p id='status' class='cursor-pointer text-copper italic select-none'>
+          Status: {randomStatusMessage}
+        </p>
       </div>
     </footer>
 
-    <script>
+    <script is:inline define:vars={{ randomStatus }}>
       const toggle = document.getElementById('mobile-menu-toggle');
       const sidebar = document.getElementById('sidebar-menu');
 
       if (toggle && sidebar) {
         toggle.addEventListener('click', () => {
           sidebar.classList.toggle('mobile-open');
+        });
+      }
+
+      const status = document.getElementById('status');
+      if (status) {
+        status.addEventListener('click', () => {
+          const sliced = randomStatus.slice(13);
+          const randomStatusMessage =
+            sliced[Math.floor(Math.random() * sliced.length)];
+          console.log(sliced);
+          status.textContent = 'Status: ' + randomStatusMessage;
         });
       }
     </script>

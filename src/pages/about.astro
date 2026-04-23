@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SoftCard from '../components/SoftCard.astro';
+import SoftButton from '../components/SoftButton.astro';
 import {
   GraduationCap,
   ChevronRight,
@@ -8,6 +9,7 @@ import {
   Terminal,
   Cloud,
   CodeIcon,
+  Mail,
 } from '@lucide/astro';
 import {
   Typescript,
@@ -34,8 +36,12 @@ import {
   Openjdk,
   Zedindustries,
   Astro as AstroIcon,
+  Github,
+  Php,
 } from 'simple-icons-astro';
 import { urls } from '../utils/urls';
+import { Image } from 'astro:assets';
+import email from '../assets/images/email.png';
 
 const experience = [
   {
@@ -70,7 +76,7 @@ const education = [
   },
   {
     institution: 'Instituto Federal de São Paulo (IFSP)',
-    degree: 'Technician in IT for Internet',
+    degree: 'Technician in Web Developent',
     period: 'Jan 2019 — Dec 2021',
     details: 'Web Development with JavaScript and PHP.',
   },
@@ -80,38 +86,40 @@ const skillCategories = [
   {
     name: 'Programming Languages',
     skills: [
-      { name: 'TypeScript', icon: Typescript, color: 'text-blue-600' },
-      { name: 'Rust', icon: Rust, color: 'text-orange-700' },
-      { name: 'Go', icon: Go, color: 'text-cyan-600' },
-      { name: 'Elixir', icon: Elixir, color: 'text-purple-600' },
-      { name: 'Java', icon: Openjdk, color: 'text-red-600' },
+      { name: 'TypeScript', icon: Typescript },
+      { name: 'PHP', icon: Php },
+      { name: 'Rust', icon: Rust },
+      { name: 'Go', icon: Go },
+      { name: 'Elixir', icon: Elixir },
+      { name: 'Java', icon: Openjdk },
     ],
   },
   {
     name: 'Frontend',
     skills: [
-      { name: 'React', icon: React, color: 'text-cyan-500' },
-      { name: 'Vite', icon: Vite, color: 'text-purple-500' },
-      { name: 'React Native', icon: React, color: 'text-blue-400' },
-      { name: 'Expo', icon: Expo, color: 'text-gray-800' },
-      { name: 'Astro', icon: AstroIcon, color: 'text-cyan-500' },
-      { name: 'Tauri', icon: Tauri, color: 'text-yellow-500' },
+      { name: 'React', icon: React },
+      { name: 'Vite', icon: Vite },
+      { name: 'React Native', icon: React },
+      { name: 'Expo', icon: Expo },
+      { name: 'Astro', icon: AstroIcon },
+      { name: 'Tauri', icon: Tauri },
     ],
   },
   {
     name: 'Backend',
     skills: [
-      { name: 'Node.js', icon: Nodedotjs, color: 'text-green-600' },
-      { name: 'Bun', icon: Bun, color: 'text-orange-400' },
-      { name: 'Fastify', icon: Fastify, color: 'text-gray-800' },
-      { name: 'Spring Boot', icon: Springboot, color: 'text-green-500' },
-      { name: 'Postgres', icon: Postgresql, color: 'text-blue-400' },
-      { name: 'MySQL', icon: Mysql, color: 'text-blue-600' },
-      { name: 'Prisma', icon: Prisma, color: 'text-gray-700' },
-      { name: 'Drizzle', icon: Drizzle, color: 'text-yellow-600' },
-      { name: 'Nginx', icon: Nginx, color: 'text-green-600' },
-      { name: 'Docker', icon: Docker, color: 'text-blue-500' },
-      { name: 'AWS', icon: Cloud, color: 'text-orange-500' },
+      { name: 'Node.js', icon: Nodedotjs },
+      { name: 'Bun', icon: Bun },
+      { name: 'Fastify', icon: Fastify },
+      { name: 'Spring Boot', icon: Springboot },
+      { name: 'Postgres', icon: Postgresql },
+      { name: 'MySQL', icon: Mysql },
+      { name: 'Prisma', icon: Prisma },
+      { name: 'Drizzle', icon: Drizzle },
+      { name: 'Nginx', icon: Nginx },
+      { name: 'Docker', icon: Docker },
+      { name: 'AWS', icon: Cloud },
+      { name: 'Azure', icon: Cloud },
     ],
   },
 
@@ -135,23 +143,23 @@ const funFacts: string[] = [
 ---
 
 <BaseLayout title='shobon03 | About Me'>
-  <div class='space-y-6 pb-8'>
+  <div class='space-y-6'>
     <!-- Header Summary -->
     <SoftCard title='System Information: Overview'>
       <div class='flex flex-col gap-6 md:flex-row md:items-center'>
-        <div class='relative h-32 w-32 shrink-0 self-center md:self-start'>
+        <div class='relative size-32 shrink-0 self-center md:self-start'>
           <div
-            class='overflow-hidden rounded-full border-4 border-white shadow-lg'
-          >
-            <img
+            class='overflow-hidden rounded-full border-4 border-white shadow-lg'>
+            <Image
               src={urls.avatar}
               alt='Matheus Piovezan Teixeira'
               class='h-full w-full object-cover'
+              width='128'
+              height='128'
             />
           </div>
           <div
-            class='absolute -right-1 -bottom-1 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-white shadow-md'
-          >
+            class='absolute -right-1 -bottom-1 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-white shadow-md'>
             <Terminal size={16} />
           </div>
         </div>
@@ -159,7 +167,7 @@ const funFacts: string[] = [
           <p class='text-2xl'>
             I'm <span class='font-bricolage font-bold'>Matheus</span>, but you
             can call me
-            <span class='font-bricolage font-bold'>syobon.</span>
+            <span class='font-bricolage font-bold'>shobon03</span>.
           </p>
           <p class='font-mono text-sm font-bold text-blue-600 uppercase'>
             Full-Stack Developer • Systems Enthusiast
@@ -169,6 +177,42 @@ const funFacts: string[] = [
             scalable cloud-native applications and love diving into low-level
             systems and open-source projects.
           </p>
+        </div>
+        <div class='grid grid-cols-1 gap-2'>
+          <SoftButton
+            href={urls.github}
+            target='_blank'
+            class='w-full justify-center gap-2'>
+            <Github size={14} /> GitHub Profile
+          </SoftButton>
+          <SoftButton
+            href={urls.linkedin}
+            target='_blank'
+            class='w-full justify-center gap-2'>
+            <svg
+              width='14px'
+              height='14px'
+              viewBox='0 0 256 256'
+              xmlns='http://www.w3.org/2000/svg'>
+              <g fill='none'>
+                <path
+                  d='M0 18.338C0 8.216 8.474 0 18.92 0h218.16C247.53 0 256 8.216 256 18.338v219.327C256 247.79 247.53 256 237.08 256H18.92C8.475 256 0 247.791 0 237.668V18.335z'
+                  fill='#1c398e'>
+                </path>
+                <path
+                  d='M77.796 214.238V98.986H39.488v115.252H77.8zM58.65 83.253c13.356 0 21.671-8.85 21.671-19.91-.25-11.312-8.315-19.915-21.417-19.915-13.111 0-21.674 8.603-21.674 19.914 0 11.06 8.312 19.91 21.169 19.91h.248zM99 214.238h38.305v-64.355c0-3.44.25-6.889 1.262-9.346 2.768-6.885 9.071-14.012 19.656-14.012 13.858 0 19.405 10.568 19.405 26.063v61.65h38.304v-66.082c0-35.399-18.896-51.872-44.099-51.872-20.663 0-29.738 11.549-34.78 19.415h.255V98.99H99.002c.5 10.812-.003 115.252-.003 115.252z'
+                  fill='#ffffff'>
+                </path>
+              </g>
+            </svg>
+            LinkedIn Profile
+          </SoftButton>
+          <SoftButton
+            id='email-btn'
+            class='w-full cursor-pointer justify-center gap-2'>
+            <Mail size={14} />
+            Send me an E-mail
+          </SoftButton>
         </div>
       </div>
     </SoftCard>
@@ -218,8 +262,8 @@ const funFacts: string[] = [
                   <div class='flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-gray-200 bg-gray-50'>
                     <GraduationCap size={20} class='text-gray-600' />
                   </div>
-                  <div class='space-y-1'>
-                    <div class='flex flex-col justify-between sm:flex-row sm:items-center'>
+                  <div class='flex-1 space-y-1'>
+                    <div class='flex flex-col justify-between gap-5 sm:flex-row sm:items-center'>
                       <h3 class='font-bricolage font-bold text-gray-800'>
                         {item.institution}
                       </h3>
@@ -281,8 +325,7 @@ const funFacts: string[] = [
                 </span>
               </div>
               <div
-                class='h-1.5 w-full overflow-hidden rounded-full bg-gray-100'
-              >
+                class='h-1.5 w-full overflow-hidden rounded-full bg-gray-100'>
                 <div class='h-full w-full bg-blue-500'></div>
               </div>
             </div>
@@ -296,8 +339,7 @@ const funFacts: string[] = [
                 </span>
               </div>
               <div
-                class='h-1.5 w-full overflow-hidden rounded-full bg-gray-100'
-              >
+                class='h-1.5 w-full overflow-hidden rounded-full bg-gray-100'>
                 <div class='h-full w-[95%] bg-blue-500'></div>
               </div>
             </div>
@@ -311,8 +353,7 @@ const funFacts: string[] = [
                 </span>
               </div>
               <div
-                class='h-1.5 w-full overflow-hidden rounded-full bg-gray-100'
-              >
+                class='h-1.5 w-full overflow-hidden rounded-full bg-gray-100'>
                 <div class='h-full w-[15%] bg-blue-300'></div>
               </div>
             </div>
@@ -360,5 +401,53 @@ const funFacts: string[] = [
         </SoftCard>
       </div>
     </div>
+
+    <!-- Email Modal -->
+    <dialog
+      id='email-modal'
+      class='m-auto w-full max-w-md border-none bg-transparent p-4 outline-none backdrop:bg-black/50'>
+      <SoftCard title='Send me an E-mail'>
+        <div class='space-y-4'>
+          <div class='text-gray-700'>
+            <p class='text-xs'>
+              If you want to contact me, feel free to send me an email at:
+            </p>
+            <Image src={email} alt='My email address.' class='py-2' />
+            <p class='text-xs'>Replace GOOGLEMAIL with GMAIL.</p>
+          </div>
+          <div class='flex justify-end border-t border-gray-100 pt-4'>
+            <SoftButton id='close-email-modal-btn' variant='secondary'>
+              Dismiss
+            </SoftButton>
+          </div>
+        </div>
+      </SoftCard>
+    </dialog>
   </div>
+
+  <script>
+    // Email Modal Logic
+    const emailBtn = document.getElementById('email-btn');
+    const closeEmailBtn = document.getElementById('close-email-modal-btn');
+    const emailModal = document.getElementById(
+      'email-modal',
+    ) as HTMLDialogElement;
+
+    if (emailBtn && emailModal && closeEmailBtn) {
+      emailBtn.addEventListener('click', () => {
+        emailModal.showModal();
+      });
+
+      closeEmailBtn.addEventListener('click', () => {
+        emailModal.close();
+      });
+
+      // Close on backdrop click
+      emailModal.addEventListener('click', (e) => {
+        if (e.target === emailModal) {
+          emailModal.close();
+        }
+      });
+    }
+  </script>
 </BaseLayout>

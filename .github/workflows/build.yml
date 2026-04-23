@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create .env file
+        run: echo "LAST_UPDATE=$(date +%s%3N)" > .env
+
       - name: Install, build, and upload your site
         uses: withastro/action@v6
         env:

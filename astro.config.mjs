@@ -10,4 +10,7 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
+	image: {
+		domains: ["avatars.githubusercontent.com", "github.com"],
+	},
 });

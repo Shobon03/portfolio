@@ -1,5 +1,10 @@
 ---
 import { Menu } from '@lucide/astro';
+import { env } from '../config/env';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(localizedFormat);
 
 const randomNames: string[] = [
   'VISITOR',
@@ -25,14 +30,17 @@ const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
 const { pathname } = Astro.url;
 
 const tabs = [
-  { name: 'Home', url: '/' },
-  { name: 'About', url: '/about' },
-  { name: 'Projects', url: '/projects' },
-  { name: 'Blog', url: '/blog' },
+  { name: 'Home', url: '/portfolio/' },
+  { name: 'About', url: '/portfolio/about' },
+  { name: 'Projects', url: '/portfolio/projects' },
+  { name: 'Blog', url: '/portfolio/blog' },
 ];
 
 const getTabClass = (url: string) => {
-  const isActive = url === '/' ? pathname === '/' : pathname.startsWith(url);
+  const isActive =
+    url === '/portfolio/'
+      ? pathname === '/portfolio/' || pathname === '/portfolio'
+      : pathname.startsWith(url);
   return isActive
     ? 'glossy-tab-active border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-white no-underline shadow-(--shadow-web2) transition-all active:translate-y-px active:shadow-(--shadow-inset-panel)'
     : 'glossy-tab border border-b-0 border-gray-500 px-4 py-1 text-xs font-bold text-gray-700 no-underline transition-all hover:text-base-dark active:translate-y-px active:shadow-(--shadow-inset-panel)';
@@ -42,27 +50,23 @@ const getTabClass = (url: string) => {
 <header class='w-full'>
   <!-- Top Branding Bar -->
   <div
-    class='glossy-header flex items-center justify-between border-b border-black bg-base-dark px-4 py-2'
-  >
+    class='glossy-header flex items-center justify-between border-b border-black bg-base-dark px-4 py-2'>
     <div class='flex items-center gap-3'>
       <button
         id='mobile-menu-toggle'
         class='cursor-pointer rounded-sm p-1 text-white hover:bg-white/10 lg:hidden'
-        aria-label='Toggle Menu'
-      >
+        aria-label='Toggle Menu'>
         <Menu />
       </button>
       <div>
         <h1
-          class='font-bricolage text-sm leading-none font-bold tracking-tight text-white sm:text-lg'
-        >
+          class='font-bricolage text-sm leading-none font-bold tracking-tight text-white sm:text-lg'>
           shobon03's WebSite
         </h1>
       </div>
     </div>
     <div
-      class='hidden items-center gap-4 text-[10px] font-semibold text-white uppercase md:flex'
-    >
+      class='hidden items-center gap-4 text-[10px] font-semibold text-white uppercase select-none md:flex'>
       <span>
         Welcome back, <strong class='text-light-cream'>{randomName}</strong>
       </span>
@@ -71,8 +75,7 @@ const getTabClass = (url: string) => {
 
   <!-- Tabs Navigation -->
   <div
-    class='flex gap-1 overflow-x-auto border-b border-gray-400 bg-[#D1D5DB] px-4 pt-1 font-bricolage shadow-sm'
-  >
+    class='flex gap-1 overflow-x-auto border-b border-gray-400 bg-[#D1D5DB] px-4 pt-1 font-bricolage shadow-sm'>
     {
       tabs.map((tab) => (
         <a href={tab.url} class={getTabClass(tab.url)}>
@@ -84,21 +87,20 @@ const getTabClass = (url: string) => {
 
   <!-- Breadcrumbs Bar -->
   <div
-    class='flex items-center gap-2 overflow-x-auto border-b border-gray-300 bg-[#F3F4F6] px-4 py-1 text-[11px] font-medium whitespace-nowrap text-gray-500'
-  >
-    <a href='/' class='text-blue-600 hover:underline'>Home</a>
+    class='flex items-center gap-2 overflow-x-auto border-b border-gray-300 bg-[#F3F4F6] px-4 py-1 text-[11px] font-medium whitespace-nowrap text-gray-500'>
+    <a href='/portfolio/' class='text-blue-600 hover:underline'>Home</a>
     {
-      pathname !== '/' && (
+      pathname !== '/portfolio/' && pathname !== '/portfolio' && (
         <>
           <span>&gt;</span>
           <span class='font-bold text-gray-900 capitalize'>
-            {pathname.split('/')[1]}
+            {pathname.split('/')[2]}
           </span>
         </>
       )
     }
     {
-      pathname === '/' && (
+      (pathname === '/portfolio/' || pathname === '/portfolio') && (
         <>
           <span>&gt;</span>
           <span class='font-bold text-gray-900 capitalize'>Overview</span>
@@ -106,7 +108,7 @@ const getTabClass = (url: string) => {
       )
     }
     <span class='ml-auto hidden text-gray-400 italic sm:inline-block'>
-      Last update: Apr 22, 2026
+      Last update: {dayjs(env.LAST_UPDATE).format('ll')}
     </span>
   </div>
 </header>

@@ -12,6 +12,7 @@ import {
 } from '@lucide/astro';
 import { Github } from 'simple-icons-astro';
 import { urls } from '../utils/urls';
+import { Image } from 'astro:assets';
 ---
 
 <BaseLayout title='shobon03 | Home'>
@@ -26,36 +27,34 @@ import { urls } from '../utils/urls';
               Welcome to my Workspace
             </h2>
             <p class='text-sm leading-relaxed text-gray-700'>
-              Hi there! I'm a passionate <span class='font-bold'
-                >Full-Stack Developer from <span
+              Hi there! I'm a passionate <span class='font-bold'>
+                Full-Stack Developer from <span
                   id='brazil-wave'
-                  class='group inline-flex cursor-default items-center'
-                >
-                  <span class='wave-item mr-1 hidden group-hover:inline-block'
-                    >🇧🇷</span
-                  >
+                  class='group inline-flex cursor-default items-center'>
+                  <span class='wave-item mr-1 hidden group-hover:inline-block'>
+                    🇧🇷
+                  </span>
                   <span class='wave-item inline-block'>B</span>
                   <span class='wave-item inline-block'>r</span>
                   <span class='wave-item inline-block'>a</span>
                   <span class='wave-item inline-block'>z</span>
                   <span class='wave-item inline-block'>i</span>
                   <span class='wave-item inline-block'>l</span>
-                </span></span
-              > who loves creating innovative solutions and contributing to the open-source
-              community. Explore my digital hub to see my latest projects and technical
-              journey.
+                </span>
+              </span> who loves creating innovative solutions and contributing to
+              the open-source community. Explore my digital hub to see my latest projects
+              and technical journey.
             </p>
           </div>
 
           <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
-            <SoftButton href='/projects' class='w-full gap-2 py-3'>
+            <SoftButton href='/portfolio/projects' class='w-full gap-2 py-3'>
               <Binary size={16} /> Explore Projects <ArrowRight size={14} />
             </SoftButton>
             <SoftButton
               id='contact-btn'
               variant='secondary'
-              class='w-full gap-2 py-3'
-            >
+              class='w-full gap-2 py-3'>
               <MessageSquare size={16} /> Get in Touch
             </SoftButton>
           </div>
@@ -66,12 +65,15 @@ import { urls } from '../utils/urls';
         <a
           href={urls.github}
           target='_blank'
-          class='group mx-auto flex h-full w-fit flex-col items-center justify-center text-center no-underline'
-        >
+          class='group mx-auto flex h-full w-fit flex-col items-center justify-center text-center no-underline'>
           <div
-            class='mb-4 size-24 overflow-hidden rounded-full border-4 border-white shadow-md transition-transform group-hover:scale-105 group-active:translate-y-px group-active:scale-95'
-          >
-            <img src={urls.avatar} alt='shobon03 avatar' />
+            class='mb-4 size-24 overflow-hidden rounded-full border-4 border-white shadow-md transition-transform group-hover:scale-105 group-active:translate-y-px group-active:scale-95'>
+            <Image
+              src={urls.avatar}
+              alt='shobon03 avatar'
+              width='96'
+              height='96'
+            />
           </div>
           <h3 class='text-lg font-bold text-gray-800'>shobon03</h3>
           <p class='font-mono text-[10px] font-bold text-blue-600 uppercase'>
@@ -84,13 +86,11 @@ import { urls } from '../utils/urls';
     <!-- Contact Modal -->
     <dialog
       id='contact-modal'
-      class='m-auto w-full max-w-md border-none bg-transparent p-4 outline-none backdrop:bg-black/50'
-    >
+      class='m-auto w-full max-w-md border-none bg-transparent p-4 outline-none backdrop:bg-black/50'>
       <SoftCard title='System Message: Work in Progress'>
         <div class='space-y-4'>
           <div
-            class='rounded-xs border border-blue-200 bg-blue-50 p-3 font-space text-xs leading-relaxed text-blue-800 italic'
-          >
+            class='rounded-xs border border-blue-200 bg-blue-50 p-3 font-space text-xs leading-relaxed text-blue-800 italic'>
             "Thank you for your interest! My personal workspace is currently
             under construction as I refine the final modules and experience."
           </div>
@@ -102,28 +102,27 @@ import { urls } from '../utils/urls';
             <SoftButton
               href={urls.github}
               target='_blank'
-              class='w-full justify-center gap-2'
-            >
+              class='w-full justify-center gap-2'>
               <Github size={14} /> GitHub Profile
             </SoftButton>
             <SoftButton
               href={urls.linkedin}
               target='_blank'
-              class='w-full justify-center gap-2'
-            >
+              class='w-full justify-center gap-2'>
               <svg
                 width='14px'
                 height='14px'
                 viewBox='0 0 256 256'
-                xmlns='http://www.w3.org/2000/svg'
-              >
+                xmlns='http://www.w3.org/2000/svg'>
                 <g fill='none'>
                   <path
                     d='M0 18.338C0 8.216 8.474 0 18.92 0h218.16C247.53 0 256 8.216 256 18.338v219.327C256 247.79 247.53 256 237.08 256H18.92C8.475 256 0 247.791 0 237.668V18.335z'
-                    fill='#1c398e'></path>
+                    fill='#1c398e'>
+                  </path>
                   <path
                     d='M77.796 214.238V98.986H39.488v115.252H77.8zM58.65 83.253c13.356 0 21.671-8.85 21.671-19.91-.25-11.312-8.315-19.915-21.417-19.915-13.111 0-21.674 8.603-21.674 19.914 0 11.06 8.312 19.91 21.169 19.91h.248zM99 214.238h38.305v-64.355c0-3.44.25-6.889 1.262-9.346 2.768-6.885 9.071-14.012 19.656-14.012 13.858 0 19.405 10.568 19.405 26.063v61.65h38.304v-66.082c0-35.399-18.896-51.872-44.099-51.872-20.663 0-29.738 11.549-34.78 19.415h.255V98.99H99.002c.5 10.812-.003 115.252-.003 115.252z'
-                    fill='#ffffff'></path>
+                    fill='#ffffff'>
+                  </path>
                 </g>
               </svg>
               LinkedIn Profile
@@ -148,8 +147,7 @@ import { urls } from '../utils/urls';
               Who am I?
             </h2>
             <p
-              class='flex items-center gap-1 text-[11px] font-medium text-gray-500 uppercase'
-            >
+              class='flex items-center gap-1 text-[11px] font-medium text-gray-500 uppercase'>
               <span>Core Intelligence</span>
               <span class='flex gap-1'>
                 <Ampersands size={16} />
@@ -163,43 +161,44 @@ import { urls } from '../utils/urls';
           <div class='space-y-4'>
             <p class='text-sm leading-relaxed text-gray-700'>
               I'm a developer dedicated to building high-quality software,
-              especially modern <span class='font-bold'
-                >cloud-native applications</span
-              >. A Linux enthusiast since 2019, a lover of SMW and SMW Hacking
-              and a fan of synthwave music.
+              especially modern <span class='font-bold'>
+                cloud-native applications
+              </span>. A Linux enthusiast since 2019, a lover of SMW and SMW
+              Hacking and a fan of synthwave music.
             </p>
             <p class='text-sm leading-relaxed text-gray-700'>
               Currently focusing on exploring the depths of system architectures
               and building and contributing to open-source projects using
-              languages like <span class='font-bold'
-                >TypeScript, Go and Rust</span
-              >.
+              languages like <span class='font-bold'>
+                TypeScript, Go and Rust
+              </span>.
             </p>
           </div>
 
           <div
-            class='space-y-3 rounded-xs border border-gray-200 bg-gray-50 p-4'
-          >
+            class='space-y-3 rounded-xs border border-gray-200 bg-gray-50 p-4'>
             <h4
-              class='border-b border-gray-200 pb-2 font-bricolage text-xs font-bold tracking-tighter text-gray-600 uppercase'
-            >
+              class='border-b border-gray-200 pb-2 font-bricolage text-xs font-bold tracking-tighter text-gray-600 uppercase'>
               Technical Specs Overview
             </h4>
             <div class='grid grid-cols-2 gap-y-2 font-space text-[11px]'>
               <span class='font-bold text-gray-500 uppercase'>Core Stack:</span>
-              <span class='font-bold text-blue-700'>TypeScript, PHP</span>
+              <span class='font-bold text-blue-700'>TypeScript</span>
 
-              <span class='font-bold text-gray-500 uppercase'>Environment:</span
-              >
+              <span class='font-bold text-gray-500 uppercase'>
+                Environment:
+              </span>
               <span class='font-bold text-blue-700'>Linux (Fedora)</span>
 
               <span class='font-bold text-gray-500 uppercase'>Focus:</span>
-              <span class='font-bold text-blue-700'>Full-Stack Development</span
-              >
+              <span class='font-bold text-blue-700'>
+                Full-Stack Development
+              </span>
 
               <span class='font-bold text-gray-500 uppercase'>Interests:</span>
-              <span class='font-bold text-blue-700'>FOSS, SNES Programming</span
-              >
+              <span class='font-bold text-blue-700'>
+                FOSS, SNES Programming
+              </span>
             </div>
           </div>
         </div>
@@ -211,13 +210,12 @@ import { urls } from '../utils/urls';
       <SoftCard title='Current Status' class='bg-green-50/30'>
         <div class='flex items-center gap-3'>
           <div
-            class='size-3 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'
-          >
+            class='size-3 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'>
           </div>
           <div class='text-[11px]'>
-            <span class='font-bricolage font-bold text-green-800 uppercase'
-              >Available for new opportunities</span
-            >
+            <span class='font-bricolage font-bold text-green-800 uppercase'>
+              Available for new opportunities
+            </span>
             <p class='font-space text-gray-500 italic'>
               Response time: &lt; 24 hours
             </p>
@@ -226,13 +224,13 @@ import { urls } from '../utils/urls';
       </SoftCard>
       <SoftCard title='Latest Update'>
         <div class='flex items-center justify-between font-space text-[11px]'>
-          <span class='font-medium text-gray-600'
-            >Portfolio v1.0 Deployment</span
-          >
+          <span class='font-medium text-gray-600'>
+            Portfolio v1.0 Deployment
+          </span>
           <span
-            class='rounded-xs border border-blue-100 bg-blue-50 px-1.5 text-[10px] font-bold text-blue-600'
-            >SUCCESS</span
-          >
+            class='rounded-xs border border-blue-100 bg-blue-50 px-1.5 text-[10px] font-bold text-blue-600'>
+            SUCCESS
+          </span>
         </div>
       </SoftCard>
     </div>

@@ -22,6 +22,7 @@
     "@lucide/astro": "^1.8.0",
     "@tailwindcss/vite": "^4.2.4",
     "astro": "^6.1.8",
+    "dayjs": "^1.11.20",
     "simple-icons-astro": "^16.1.0",
     "tailwindcss": "^4.2.4"
   },
